@@ -1,5 +1,7 @@
 package com.patos.alens.demo.enumerated;
 
+import java.util.Locale;
+
 /**
  * A classe TipoCombustivel é responsável por representar o tipo de combustivel de uma nave
  *
@@ -17,7 +19,8 @@ public enum TipoCombustivel {
 
     FALHA_GRAVITACIONAL("Falha Gravitacional", "Explora falhas na gravidade. Incrivelmente instável, mas muito divertido."),
 
-    PARTICULAS_VIRTUAIS("Partículas Virtuais", "Combustível que existe e não existe ao mesmo tempo. Esperamos que funcione...");
+    PARTICULAS_VIRTUAIS("Partículas Virtuais", "Combustível que existe e não existe ao mesmo tempo. Esperamos que funcione..."),
+    COMBUSTIVEL_DESCONHECIDO("Combustivel desconhecido", "Combustivel muito avançado para nossa tecnologia");
 
     private final String nome;
     private final String descricao;
@@ -33,6 +36,13 @@ public enum TipoCombustivel {
 
     public String getDescricao() {
         return descricao;
+    }
+    public static TipoCombustivel getByEnum(String cor) {
+        try {
+            return TipoCombustivel.valueOf(cor.toUpperCase(Locale.ROOT));
+        } catch (Exception e) {
+            return COMBUSTIVEL_DESCONHECIDO;
+        }
     }
 
     @Override

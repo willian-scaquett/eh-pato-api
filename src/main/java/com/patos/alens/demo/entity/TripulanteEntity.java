@@ -24,6 +24,8 @@ public class TripulanteEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id_tripulante")
     private Long idTripulante;
+    @Column(name = "nome_tripulante", length = 100)
+    private String nomeTripulante;
     @Column(name = "estado_tripulante", length = 50)
     @Enumerated(EnumType.STRING)
     private EstadoTripulante estadoTripulante;

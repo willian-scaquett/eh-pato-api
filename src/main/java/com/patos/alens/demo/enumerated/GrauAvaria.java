@@ -1,5 +1,7 @@
 package com.patos.alens.demo.enumerated;
 
+import java.util.Locale;
+
 /**
  * O enumerador GrauAvaria é responsável por disponibilizar qual é o grau de avaria de uma nave
  *
@@ -35,5 +37,12 @@ public enum GrauAvaria {
     @Override
     public String toString() {
         return nomeExibicao + " - " + descricao;
+    }
+    public GrauAvaria getByEnum(String localEnum) {
+        try {
+            return GrauAvaria.valueOf(localEnum.toUpperCase(Locale.ROOT));
+        } catch (Exception e) {
+            return SEM_AVARIAS;
+        }
     }
 }
