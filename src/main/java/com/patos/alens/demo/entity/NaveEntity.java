@@ -1,14 +1,26 @@
 package com.patos.alens.demo.entity;
 
-import com.patos.alens.demo.enumerated.*;
-import jakarta.persistence.*;
-import lombok.Getter;
-import lombok.Setter;
-import org.hibernate.annotations.CreationTimestamp;
-import org.hibernate.annotations.UpdateTimestamp;
-
+import com.patos.alens.demo.dto.NaveRequestDTO;
+import com.patos.alens.demo.enumerated.CorNave;
+import com.patos.alens.demo.enumerated.GrauAvaria;
+import com.patos.alens.demo.enumerated.LocalQueda;
+import com.patos.alens.demo.enumerated.PotencialTecnologico;
+import com.patos.alens.demo.enumerated.TipoCombustivel;
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.JoinTable;
+import jakarta.persistence.ManyToMany;
+import jakarta.persistence.Table;
 import java.time.LocalDateTime;
 import java.util.List;
+import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.UpdateTimestamp;
 
 @Entity
 @Table(name = "nave")
@@ -137,5 +149,29 @@ public class NaveEntity {
 
     public void setAtualizadoEm(LocalDateTime atualizadoEm) {
         this.atualizadoEm = atualizadoEm;
+    }
+
+    public void atualizaNave(NaveRequestDTO dto) {
+        if (dto.getNomeNave() != null) {
+            this.setNomeNave(dto.getNomeNave());
+        }
+        if (dto.getCorNave() != null) {
+            this.setCorNave(dto.getCorNave());
+        }
+        if (dto.getLocalQuedaNave() != null) {
+            this.setLocalQuedaNave(dto.getLocalQuedaNave());
+        }
+        if (dto.getArmamentoNave() != null) {
+            this.setArmamentoNave(dto.getArmamentoNave());
+        }
+        if (dto.getTipoCombustivel() != null) {
+            this.setTipoCombustivel(dto.getTipoCombustivel());
+        }
+        if (dto.getGrauAvaria() != null) {
+            this.setGrauAvaria(dto.getGrauAvaria());
+        }
+        if (dto.getPotencialTecnologico() != null) {
+            this.setPotencialTecnologico(dto.getPotencialTecnologico());
+        }
     }
 }
