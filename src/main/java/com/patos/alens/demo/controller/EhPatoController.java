@@ -17,7 +17,7 @@ public class EhPatoController {
     }
 
     @PutMapping(value = "")
-    public ResponseEntity<?> atualizaNave(@RequestBody EhPatoRequestDTO ehPatoRequestDTO) {
+    public ResponseEntity<?> criarEstrategia(@RequestBody EhPatoRequestDTO ehPatoRequestDTO) {
         return ResponseEntity.ok(ehPatoService.criarEstrategia(ehPatoRequestDTO));
     }
 }

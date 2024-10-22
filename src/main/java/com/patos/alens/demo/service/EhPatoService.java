@@ -24,7 +24,7 @@ public class EhPatoService {
     }
 
     public EhPatoResponseDTO criarEstrategia(EhPatoRequestDTO ehPatoResquestDTO) {
-        String apiUrl = "http://127.0.0.1:8000/verificarElemento";
+        String apiUrl = "http://0.0.0.0:8000/verificarElemento";
 
         HttpHeaders headers = new HttpHeaders();
         headers.set("Content-Type", "application/json");
