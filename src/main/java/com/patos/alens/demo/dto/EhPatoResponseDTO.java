@@ -11,6 +11,6 @@ public class EhPatoResponseDTO {
 
     boolean ehPato;
     String armaRecomendada;
-    String estrategiaRecomendada;
+    String abordagemRecomendada;
 
 }
