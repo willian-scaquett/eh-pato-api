@@ -2,10 +2,12 @@ package com.patos.alens.demo.service;
 
 import com.patos.alens.demo.dto.NaveRequestDTO;
 import com.patos.alens.demo.dto.NaveResponseDTO;
-import com.patos.alens.demo.entity.NaveEntity;
+import com.patos.alens.demo.entity.Nave;
 import com.patos.alens.demo.repository.NaveRepository;
 
-import java.util.Optional;
+import java.util.ArrayList;
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
@@ -16,54 +18,58 @@ public class NaveService {
     @Autowired
     NaveRepository naveRepository;
 
-    public ResponseEntity<?> listaNaves() {
-        return ResponseEntity.of(Optional.of(naveRepository.findAll()));
+    public List<NaveResponseDTO> listaNaves() {
+        List<NaveResponseDTO> response = new ArrayList<>();
+
+        naveRepository.findAll().forEach(nave -> response.add(new NaveResponseDTO(nave)));
+
+        return response;
     }
 
     public ResponseEntity<?> criaNave(NaveRequestDTO naveRequestDTO) {
 
-        NaveEntity naveEntity = new NaveEntity();
-        naveEntity.setPotencialTecnologico(naveRequestDTO.getPotencialTecnologico());
-        naveEntity.setArmamento(naveRequestDTO.getArmamento());
-        naveEntity.setCor(naveRequestDTO.getCor());
-        naveEntity.setTipoCombustivel(naveRequestDTO.getTipoCombustivel());
-        naveEntity.setGrauAvaria(naveRequestDTO.getGrauAvaria());
-        naveEntity.setLocalQueda(naveRequestDTO.getLocalQueda());
-        naveEntity.setNome(naveRequestDTO.getNome());
+        Nave nave = new Nave();
+        nave.setPotencialTecnologico(naveRequestDTO.getPotencialTecnologico());
+        nave.setArmamento(naveRequestDTO.getArmamento());
+        nave.setCor(naveRequestDTO.getCor());
+        nave.setTipoCombustivel(naveRequestDTO.getTipoCombustivel());
+        nave.setGrauAvaria(naveRequestDTO.getGrauAvaria());
+        nave.setLocalQueda(naveRequestDTO.getLocalQueda());
+        nave.setNome(naveRequestDTO.getNome());
 
-        naveRepository.save(naveEntity);
+        naveRepository.save(nave);
 
-        return ResponseEntity.ok(naveEntity);
+        return ResponseEntity.ok(nave);
 
     }
 
     public ResponseEntity<?> buscaNavePeloId(Long id) {
-        NaveEntity naveEntity = this.naveRepository.findById(id).orElse(null);
+        Nave nave = this.naveRepository.findById(id).orElse(null);
 
-        if (naveEntity == null) {
+        if (nave == null) {
             return ResponseEntity.notFound().build();
         }
 
         NaveResponseDTO naveResponseDTO = new NaveResponseDTO();
-        naveResponseDTO.setNomeNave(naveEntity.getNome());
-        naveResponseDTO.setCorNave(naveEntity.getCor().getNome());
-        naveResponseDTO.setLocalQuedaNave(naveEntity.getLocalQueda().getNome());
-        naveResponseDTO.setArmamentoNave(naveEntity.getArmamento().getNome());
-        naveResponseDTO.setTipoCombustivel(naveEntity.getTipoCombustivel().getDescricao());
-        naveResponseDTO.setGrauAvaria(naveEntity.getGrauAvaria().getDescricao());
-        naveResponseDTO.setPotencialTecnologico(naveEntity.getPotencialTecnologico().getDescricao());
-        naveResponseDTO.setTotalTripulanteBem(naveEntity.getTotalTripulanteBem());
-        naveResponseDTO.setTotalTripulanteFerido(naveEntity.getTotalTripulanteFerido());
-        naveResponseDTO.setTotalTripulanteFoiComDeus(naveEntity.getTotalTripulanteFoiComDeus());
-        naveResponseDTO.setCriadoEm(naveEntity.getCriadoEm());
-        naveResponseDTO.setAtualizadoEm(naveEntity.getAtualizadoEm());
+        naveResponseDTO.setNomeNave(nave.getNome());
+        naveResponseDTO.setCorNave(nave.getCor().getNome());
+        naveResponseDTO.setLocalQuedaNave(nave.getLocalQueda().getNome());
+        naveResponseDTO.setArmamentoNave(nave.getArmamento().getNome());
+        naveResponseDTO.setTipoCombustivel(nave.getTipoCombustivel().getDescricao());
+        naveResponseDTO.setGrauAvaria(nave.getGrauAvaria().getDescricao());
+        naveResponseDTO.setPotencialTecnologico(nave.getPotencialTecnologico().getDescricao());
+        naveResponseDTO.setTotalTripulanteBem(nave.getTotalTripulanteBem());
+        naveResponseDTO.setTotalTripulanteFerido(nave.getTotalTripulanteFerido());
+        naveResponseDTO.setTotalTripulanteFoiComDeus(nave.getTotalTripulanteFoiComDeus());
+        naveResponseDTO.setCriadoEm(nave.getCriadoEm());
+        naveResponseDTO.setAtualizadoEm(nave.getAtualizadoEm());
 
         return ResponseEntity.ok(naveResponseDTO);
     }
 
     public ResponseEntity<?> apagaNave(Long id) {
-        NaveEntity naveEntity = this.naveRepository.findById(id).orElse(null);
-        if (naveEntity == null) {
+        Nave nave = this.naveRepository.findById(id).orElse(null);
+        if (nave == null) {
             return ResponseEntity.notFound().build();
         }
         naveRepository.deleteById(id);
@@ -73,14 +79,14 @@ public class NaveService {
 
     public ResponseEntity<?> atualizaNave(Long idNave, NaveRequestDTO naveRequestDTO) {
 
-        NaveEntity naveEntity = this.naveRepository.findById(idNave).orElse(null);
+        Nave nave = this.naveRepository.findById(idNave).orElse(null);
 
-        if (naveEntity == null) {
+        if (nave == null) {
             return ResponseEntity.notFound().build();
         }
-        naveEntity.atualizaNave(naveRequestDTO);
+        nave.atualizaNave(naveRequestDTO);
 
-        this.naveRepository.save(naveEntity);
-        return ResponseEntity.ok(naveEntity);
+        this.naveRepository.save(nave);
+        return ResponseEntity.ok(nave);
     }
 }

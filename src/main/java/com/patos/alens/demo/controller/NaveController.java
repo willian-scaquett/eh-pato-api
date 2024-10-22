@@ -24,13 +24,13 @@ public class NaveController {
     }
 
     /**
-     * Lista naves response entity.
+     * Lista todas as naves cadastradas.
      *
      * @return the response entity
      */
-    @GetMapping
+        @GetMapping("/listarTodas")
     public ResponseEntity<?> listaNaves() {
-        return this.naveService.listaNaves();
+        return ResponseEntity.ok(naveService.listaNaves());
     }
 
     /**
