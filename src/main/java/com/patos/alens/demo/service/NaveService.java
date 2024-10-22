@@ -35,10 +35,6 @@ public class NaveService {
         naveEntity.setLocalQuedaNave(naveRequestDTO.getLocalQuedaNave());
         naveEntity.setNomeNave(naveRequestDTO.getNomeNave());
 
-        List<TripulanteEntity> tripulanteEntityList = naveRequestDTO.getListaDeTripulantes()
-            .stream()
-                .map(id -> this.tripulanteRepository.findById(id).orElse(null))
-                .toList();
         naveRepository.save(naveEntity);
 
         return ResponseEntity.ok(naveEntity);

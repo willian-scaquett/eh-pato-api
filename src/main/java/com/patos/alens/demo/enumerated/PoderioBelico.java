@@ -9,7 +9,7 @@ import java.util.Locale;
  */
 public enum PoderioBelico {
     LASER("Laser"),
-    MISSELE("Míssel"),
+    CANHAO_LAVA("Canhão de lava"),
     MACHINE_GUN("Metralhadora"),
     RIFLE("Rifle"),
     TASER("Taser"),
