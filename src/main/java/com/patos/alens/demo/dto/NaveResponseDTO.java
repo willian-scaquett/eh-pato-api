@@ -20,10 +20,10 @@ import lombok.NoArgsConstructor;
 @JsonSerialize
 public class NaveResponseDTO {
     private Long id;
-    private String nomeNave;
-    private String corNave;
-    private String localQuedaNave;
-    private String armamentoNave;
+    private String nome;
+    private String cor;
+    private String localQueda;
+    private String armamento;
     private String tipoCombustivel;
     private String grauAvaria;
     private String potencialTecnologico;

@@ -51,10 +51,10 @@ public class NaveService {
         }
 
         NaveResponseDTO naveResponseDTO = new NaveResponseDTO();
-        naveResponseDTO.setNomeNave(nave.getNome());
-        naveResponseDTO.setCorNave(nave.getCor().getNome());
-        naveResponseDTO.setLocalQuedaNave(nave.getLocalQueda().getNome());
-        naveResponseDTO.setArmamentoNave(nave.getArmamento().getNome());
+        naveResponseDTO.setNome(nave.getNome());
+        naveResponseDTO.setCor(nave.getCor().getNome());
+        naveResponseDTO.setLocalQueda(nave.getLocalQueda().getNome());
+        naveResponseDTO.setArmamento(nave.getArmamento().getNome());
         naveResponseDTO.setTipoCombustivel(nave.getTipoCombustivel().getDescricao());
         naveResponseDTO.setGrauAvaria(nave.getGrauAvaria().getDescricao());
         naveResponseDTO.setPotencialTecnologico(nave.getPotencialTecnologico().getDescricao());
