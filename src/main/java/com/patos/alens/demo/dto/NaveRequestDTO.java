@@ -9,16 +9,14 @@ import com.patos.alens.demo.enumerated.PoderioBelico;
 import com.patos.alens.demo.enumerated.PotencialTecnologico;
 import com.patos.alens.demo.enumerated.TipoCombustivel;
 import io.swagger.v3.oas.annotations.media.Schema;
-import lombok.Data;
-
 import java.time.LocalDateTime;
-import java.util.List;
+import lombok.Data;
 
 /**
  * A classe NaveRequestDTO é responsavel por representar o que corpo da requisição feita a api para
- * cadastrar uma nave ou editar
+ * cadastrar uma nave ou editar.
  *
- * @author Kaique Queiros kaique.q@outlook.com
+ * @author Kaique Queiros kaique_q@outlook.com
  */
 @JsonSerialize
 @Data
@@ -30,22 +28,34 @@ public class NaveRequestDTO {
     private PoderioBelico armamentoNave;
     @Schema(example = "LAGRIMAS_DE_UNICORNIO")
     private TipoCombustivel tipoCombustivel;
-    private List<Long> listaDeTripulantes;
     @Schema(example = "PERDA_TOTAL")
     private GrauAvaria grauAvaria;
     @Schema(example = "AVANCADA")
     private PotencialTecnologico potencialTecnologico;
+    private Long totalTripulanteBem;
+    private Long totalTripulanteFerido;
+    private Long totalTripulanteFoiComDeus;
     @JsonIgnore
     private LocalDateTime criadoEm;
     @JsonIgnore
     private LocalDateTime atualizadoEm;
 
+    /**
+     * Inicializador de uma nova nave.
+     *
+     * @param potencialTecnologico potencial tecnologico
+     * @param grauAvaria           grau avaria
+     * @param tipoCombustivel      tipo combustivel
+     * @param armamentoNave        armamento nave
+     * @param localQuedaNave       local queda nave
+     * @param corNave              cor nave
+     * @param nomeNave             nome nave
+     */
     public NaveRequestDTO(PotencialTecnologico potencialTecnologico, GrauAvaria grauAvaria,
-        List<Long> listaDeTripulantes, TipoCombustivel tipoCombustivel, PoderioBelico armamentoNave,
+         TipoCombustivel tipoCombustivel, PoderioBelico armamentoNave,
         LocalQueda localQuedaNave, CorNave corNave, String nomeNave) {
         this.potencialTecnologico = potencialTecnologico;
         this.grauAvaria = grauAvaria;
-        this.listaDeTripulantes = listaDeTripulantes;
         this.tipoCombustivel = tipoCombustivel;
         this.armamentoNave = armamentoNave;
         this.localQuedaNave = localQuedaNave;
