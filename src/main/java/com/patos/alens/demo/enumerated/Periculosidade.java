@@ -4,7 +4,7 @@ package com.patos.alens.demo.enumerated;
  * O enumerador PericulosidadeNave é responsável por representar o grau de periculosidade de uma nave ao se aproximar dela
  * @author Kaique Queiros kaique_q@outlook.com
  */
-public enum PericulosidadeNave {
+public enum Periculosidade {
 
     SEGURO("Seguro", "Nenhuma ameaça detectada. A nave parece pacífica e não exibe sinais de hostilidade. Comunicação diplomática recomendada."),
 
@@ -19,7 +19,7 @@ public enum PericulosidadeNave {
     private final String nomeExibicao;
     private final String descricao;
 
-    PericulosidadeNave(String nomeExibicao, String descricao) {
+    Periculosidade(String nomeExibicao, String descricao) {
         this.nomeExibicao = nomeExibicao;
         this.descricao = descricao;
     }

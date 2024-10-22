@@ -1,16 +1,9 @@
 package com.patos.alens.demo.dto;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
-import com.patos.alens.demo.enumerated.CorNave;
-import com.patos.alens.demo.enumerated.GrauAvaria;
-import com.patos.alens.demo.enumerated.LocalQueda;
-import com.patos.alens.demo.enumerated.PoderioBelico;
-import com.patos.alens.demo.enumerated.PotencialTecnologico;
-import com.patos.alens.demo.enumerated.TipoCombustivel;
-import io.swagger.v3.oas.annotations.media.Schema;
+
 import java.time.LocalDateTime;
-import java.util.List;
+
 import lombok.Data;
 import lombok.NoArgsConstructor;
 

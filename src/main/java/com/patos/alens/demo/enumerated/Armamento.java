@@ -7,7 +7,7 @@ import java.util.Locale;
  *
  * @author Kaique Queiros kaique_q@outloom.com
  */
-public enum PoderioBelico {
+public enum Armamento {
     LASER("Laser"),
     CANHAO_LAVA("Canhão de lava"),
     MACHINE_GUN("Metralhadora"),
@@ -21,7 +21,7 @@ public enum PoderioBelico {
     BOMB("Bomba");
     private String nome;
 
-    PoderioBelico(String nome) {
+    Armamento(String nome) {
         this.nome = nome;
     }
 
@@ -29,9 +29,9 @@ public enum PoderioBelico {
         return this.nome;
     }
 
-    public PoderioBelico getByEnum(String localEnum) {
+    public Armamento getByEnum(String localEnum) {
         try {
-            return PoderioBelico.valueOf(localEnum.toUpperCase(Locale.ROOT));
+            return Armamento.valueOf(localEnum.toUpperCase(Locale.ROOT));
         } catch (Exception e) {
             return BOMB;
         }

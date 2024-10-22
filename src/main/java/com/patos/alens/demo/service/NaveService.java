@@ -24,12 +24,12 @@ public class NaveService {
 
         NaveEntity naveEntity = new NaveEntity();
         naveEntity.setPotencialTecnologico(naveRequestDTO.getPotencialTecnologico());
-        naveEntity.setArmamentoNave(naveRequestDTO.getArmamentoNave());
-        naveEntity.setCorNave(naveRequestDTO.getCorNave());
+        naveEntity.setArmamento(naveRequestDTO.getArmamento());
+        naveEntity.setCor(naveRequestDTO.getCor());
         naveEntity.setTipoCombustivel(naveRequestDTO.getTipoCombustivel());
         naveEntity.setGrauAvaria(naveRequestDTO.getGrauAvaria());
-        naveEntity.setLocalQuedaNave(naveRequestDTO.getLocalQuedaNave());
-        naveEntity.setNomeNave(naveRequestDTO.getNomeNave());
+        naveEntity.setLocalQueda(naveRequestDTO.getLocalQueda());
+        naveEntity.setNome(naveRequestDTO.getNome());
 
         naveRepository.save(naveEntity);
 
@@ -45,10 +45,10 @@ public class NaveService {
         }
 
         NaveResponseDTO naveResponseDTO = new NaveResponseDTO();
-        naveResponseDTO.setNomeNave(naveEntity.getNomeNave());
-        naveResponseDTO.setCorNave(naveEntity.getCorNave().getNome());
-        naveResponseDTO.setLocalQuedaNave(naveEntity.getLocalQuedaNave().getNome());
-        naveResponseDTO.setArmamentoNave(naveEntity.getArmamentoNave().getNome());
+        naveResponseDTO.setNomeNave(naveEntity.getNome());
+        naveResponseDTO.setCorNave(naveEntity.getCor().getNome());
+        naveResponseDTO.setLocalQuedaNave(naveEntity.getLocalQueda().getNome());
+        naveResponseDTO.setArmamentoNave(naveEntity.getArmamento().getNome());
         naveResponseDTO.setTipoCombustivel(naveEntity.getTipoCombustivel().getDescricao());
         naveResponseDTO.setGrauAvaria(naveEntity.getGrauAvaria().getDescricao());
         naveResponseDTO.setPotencialTecnologico(naveEntity.getPotencialTecnologico().getDescricao());

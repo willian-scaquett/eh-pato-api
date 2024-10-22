@@ -7,7 +7,7 @@ import java.util.Locale;
  *
  * @author Kaique Queiros kaique_q@outlook.com
  */
-public enum TamanhoNave {
+public enum Tamanho {
     PEQUENA("Pequena"),
     MEDIA("Média"),
     GRANDE("Grande"),
@@ -16,7 +16,7 @@ public enum TamanhoNave {
 
     private final String nome;
 
-    TamanhoNave(String nome) {
+    Tamanho(String nome) {
         this.nome = nome;
     }
 
@@ -24,9 +24,9 @@ public enum TamanhoNave {
         return this.nome;
     }
 
-    public TamanhoNave getByEnum(String tamanho) {
+    public Tamanho getByEnum(String tamanho) {
         try {
-            return TamanhoNave.valueOf(tamanho.toUpperCase(Locale.ROOT));
+            return Tamanho.valueOf(tamanho.toUpperCase(Locale.ROOT));
         } catch (Exception e) {
             return TAMANHO_DESCONHECIDO;
         }

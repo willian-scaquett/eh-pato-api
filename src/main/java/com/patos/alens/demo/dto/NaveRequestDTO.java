@@ -2,10 +2,10 @@ package com.patos.alens.demo.dto;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
-import com.patos.alens.demo.enumerated.CorNave;
+import com.patos.alens.demo.enumerated.Cor;
 import com.patos.alens.demo.enumerated.GrauAvaria;
 import com.patos.alens.demo.enumerated.LocalQueda;
-import com.patos.alens.demo.enumerated.PoderioBelico;
+import com.patos.alens.demo.enumerated.Armamento;
 import com.patos.alens.demo.enumerated.PotencialTecnologico;
 import com.patos.alens.demo.enumerated.TipoCombustivel;
 import io.swagger.v3.oas.annotations.media.Schema;
@@ -22,10 +22,10 @@ import lombok.Data;
 @Data
 public class NaveRequestDTO {
 
-    private String nomeNave;
-    private CorNave corNave;
-    private LocalQueda localQuedaNave;
-    private PoderioBelico armamentoNave;
+    private String nome;
+    private Cor cor;
+    private LocalQueda localQueda;
+    private Armamento armamento;
     @Schema(example = "LAGRIMAS_DE_UNICORNIO")
     private TipoCombustivel tipoCombustivel;
     @Schema(example = "PERDA_TOTAL")
@@ -46,21 +46,20 @@ public class NaveRequestDTO {
      * @param potencialTecnologico potencial tecnologico
      * @param grauAvaria           grau avaria
      * @param tipoCombustivel      tipo combustivel
-     * @param armamentoNave        armamento nave
-     * @param localQuedaNave       local queda nave
-     * @param corNave              cor nave
-     * @param nomeNave             nome nave
+     * @param armamento            armamento
+     * @param localQueda           local queda
+     * @param cor                  cor
+     * @param nome                 nome
      */
     public NaveRequestDTO(PotencialTecnologico potencialTecnologico, GrauAvaria grauAvaria,
-         TipoCombustivel tipoCombustivel, PoderioBelico armamentoNave,
-        LocalQueda localQuedaNave, CorNave corNave, String nomeNave) {
+                          TipoCombustivel tipoCombustivel, Armamento armamento, LocalQueda localQueda, Cor cor, String nome) {
         this.potencialTecnologico = potencialTecnologico;
         this.grauAvaria = grauAvaria;
         this.tipoCombustivel = tipoCombustivel;
-        this.armamentoNave = armamentoNave;
-        this.localQuedaNave = localQuedaNave;
-        this.corNave = corNave;
-        this.nomeNave = nomeNave;
+        this.armamento = armamento;
+        this.localQueda = localQueda;
+        this.cor = cor;
+        this.nome = nome;
     }
 
 }

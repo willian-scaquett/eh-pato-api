@@ -1,8 +1,8 @@
 INSERT INTO nave (
-    nome_nave,
-    cor_nave,
-    local_queda_nave,
-    armamento_nave,
+    nome,
+    cor,
+    local_queda,
+    armamento,
     tipo_combustivel,
     grau_avaria,
     potencial_tecnologico,

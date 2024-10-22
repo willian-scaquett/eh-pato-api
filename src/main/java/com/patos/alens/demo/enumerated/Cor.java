@@ -7,7 +7,7 @@ import java.util.Locale;
  *
  * @author Kaique Queiros kaique_q@outlook.com
  */
-public enum CorNave {
+public enum Cor {
     VERMELHA("Vermelha"),
     LARANJA("Laranja"),
     AMARELA("Amarela"),
@@ -19,7 +19,7 @@ public enum CorNave {
 
     private final String nome;
 
-    CorNave(String nome) {
+    Cor(String nome) {
         this.nome = nome;
     }
 
@@ -27,9 +27,9 @@ public enum CorNave {
         return this.nome;
     }
 
-    public static CorNave getByEnum(String cor) {
+    public static Cor getByEnum(String cor) {
         try {
-            return CorNave.valueOf(cor.toUpperCase(Locale.ROOT));
+            return Cor.valueOf(cor.toUpperCase(Locale.ROOT));
         } catch (Exception e) {
             return COR_DESCONHECIDA;
         }
