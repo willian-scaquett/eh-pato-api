@@ -14,9 +14,9 @@ import lombok.Data;
 
 /**
  * A classe NaveRequestDTO é responsavel por representar o que corpo da requisição feita a api para
- * cadastrar uma nave ou editar
+ * cadastrar uma nave ou editar.
  *
- * @author Kaique Queiros kaique.q@outlook.com
+ * @author Kaique Queiros kaique_q@outlook.com
  */
 @JsonSerialize
 @Data
@@ -40,6 +40,17 @@ public class NaveRequestDTO {
     @JsonIgnore
     private LocalDateTime atualizadoEm;
 
+    /**
+     * Inicializador de uma nova nave.
+     *
+     * @param potencialTecnologico potencial tecnologico
+     * @param grauAvaria           grau avaria
+     * @param tipoCombustivel      tipo combustivel
+     * @param armamentoNave        armamento nave
+     * @param localQuedaNave       local queda nave
+     * @param corNave              cor nave
+     * @param nomeNave             nome nave
+     */
     public NaveRequestDTO(PotencialTecnologico potencialTecnologico, GrauAvaria grauAvaria,
          TipoCombustivel tipoCombustivel, PoderioBelico armamentoNave,
         LocalQueda localQuedaNave, CorNave corNave, String nomeNave) {

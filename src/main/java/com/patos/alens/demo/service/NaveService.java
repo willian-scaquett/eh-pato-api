@@ -3,10 +3,8 @@ package com.patos.alens.demo.service;
 import com.patos.alens.demo.dto.NaveRequestDTO;
 import com.patos.alens.demo.dto.NaveResponseDTO;
 import com.patos.alens.demo.entity.NaveEntity;
-import com.patos.alens.demo.entity.TripulanteEntity;
 import com.patos.alens.demo.repository.NaveRepository;
-import com.patos.alens.demo.repository.TripulanteRepository;
-import java.util.List;
+
 import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -17,8 +15,6 @@ public class NaveService {
 
     @Autowired
     NaveRepository naveRepository;
-    @Autowired
-    TripulanteRepository tripulanteRepository;
 
     public ResponseEntity<?> listaNaves() {
         return ResponseEntity.of(Optional.of(naveRepository.findAll()));
@@ -50,15 +46,17 @@ public class NaveService {
 
         NaveResponseDTO naveResponseDTO = new NaveResponseDTO();
         naveResponseDTO.setNomeNave(naveEntity.getNomeNave());
-        naveResponseDTO.setCorNave(naveEntity.getCorNave());
-        naveResponseDTO.setLocalQuedaNave(naveEntity.getLocalQuedaNave());
-        naveResponseDTO.setArmamentoNave(naveEntity.getArmamentoNave());
-        naveResponseDTO.setTipoCombustivel(naveEntity.getTipoCombustivel());
-        naveResponseDTO.setGrauAvaria(naveEntity.getGrauAvaria());
-        naveResponseDTO.setPotencialTecnologico(naveEntity.getPotencialTecnologico());
+        naveResponseDTO.setCorNave(naveEntity.getCorNave().getNome());
+        naveResponseDTO.setLocalQuedaNave(naveEntity.getLocalQuedaNave().getNome());
+        naveResponseDTO.setArmamentoNave(naveEntity.getArmamentoNave().getNome());
+        naveResponseDTO.setTipoCombustivel(naveEntity.getTipoCombustivel().getDescricao());
+        naveResponseDTO.setGrauAvaria(naveEntity.getGrauAvaria().getDescricao());
+        naveResponseDTO.setPotencialTecnologico(naveEntity.getPotencialTecnologico().getDescricao());
         naveResponseDTO.setTotalTripulanteBem(naveEntity.getTotalTripulanteBem());
         naveResponseDTO.setTotalTripulanteFerido(naveEntity.getTotalTripulanteFerido());
         naveResponseDTO.setTotalTripulanteFoiComDeus(naveEntity.getTotalTripulanteFoiComDeus());
+        naveResponseDTO.setCriadoEm(naveEntity.getCriadoEm());
+        naveResponseDTO.setAtualizadoEm(naveEntity.getAtualizadoEm());
 
         return ResponseEntity.ok(naveResponseDTO);
     }
