@@ -16,8 +16,8 @@ public class EhPatoController {
         this.ehPatoService = ehPatoService;
     }
 
-    @PutMapping(value = "")
-    public ResponseEntity<?> criarEstrategia(@RequestBody EhPatoRequestDTO ehPatoRequestDTO) {
+    @PostMapping(value = "/identificarECriarEstrategia")
+    public ResponseEntity<?> identificarECriarEstrategia(@RequestBody EhPatoRequestDTO ehPatoRequestDTO) {
         return ResponseEntity.ok(ehPatoService.criarEstrategia(ehPatoRequestDTO));
     }
 }

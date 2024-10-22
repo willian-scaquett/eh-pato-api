@@ -17,8 +17,11 @@ import org.springframework.web.bind.annotation.*;
 @CrossOrigin
 public class NaveController {
 
-    @Autowired
-    private NaveService naveService;
+    private final NaveService naveService;
+
+    public NaveController(NaveService naveService) {
+        this.naveService = naveService;
+    }
 
     /**
      * Lista naves response entity.

@@ -17,18 +17,60 @@ import java.util.Map;
 @Service
 public class EhPatoService {
 
-    private final RestTemplate restTemplate;
+    private final RestTemplate restTemplate; //Classe que realiza a comunicação entre as APIs
+    private final String API_IA_URL = "http://0.0.0.0:8000/verificarElemento"; //URL da API Python que consulta a IA
 
     public EhPatoService(RestTemplate restTemplate) {
         this.restTemplate = restTemplate;
     }
 
     public EhPatoResponseDTO criarEstrategia(EhPatoRequestDTO ehPatoResquestDTO) {
-        String apiUrl = "http://0.0.0.0:8000/verificarElemento";
+        //Consulta a API Python com a IA que verifica se o elemento suspeito é alien ou pato
+        if (verificarEhPato(ehPatoResquestDTO).isEhPato()) {
+            //Avisa que é pato e não recomenda arma nem abordagem
+            return new EhPatoResponseDTO(true, null, null);
+        }
 
-        HttpHeaders headers = new HttpHeaders();
+        //Avisa que é alien e recomenda uma arma e uma abordagem conforme a localização e se o elemento está em bando
+        return escolherArmaEAbordagem(ehPatoResquestDTO.getLocalizacaoSuspeito(), ehPatoResquestDTO.isEmBando());
+    }
+
+    private EhPatoResponseDTO escolherArmaEAbordagem(LocalizacaoSuspeito localizacaoSuspeito, boolean emBando) {
+        String arma = "";
+        String abordagem = "";
+
+        if (emBando) {
+            if (localizacaoSuspeito.equals(LocalizacaoSuspeito.AR)) {
+                arma = "Aspirador de pó nuclear"; //Aponte para o ar e sugue os aliens direto para a prisão
+                abordagem = "Enérgico"; //Para que nenhum fuja!
+            } else if (localizacaoSuspeito.equals(LocalizacaoSuspeito.AGUA)) {
+                arma = "Rede de pesca de adamantium"; //Lance-a e certifique-se de acertar todos eles
+                abordagem = "Furtivo"; //Eles são melhores que nós na água e estão em maior número
+            } else if (localizacaoSuspeito.equals(LocalizacaoSuspeito.TERRA)) {
+                arma = "Jaula gigante"; //Apenas uma boa e velha jaula mesmo. Simples e eficaz.
+                abordagem = "Paciente"; //Espere eles estarem bem juntos e cuidado para não fazer barulho
+            }
+        } else {
+            if (localizacaoSuspeito.equals(LocalizacaoSuspeito.AR)) {
+                arma = "Laço teleguiado"; //Segure firme, pois ele vai tentar fugir
+                abordagem = "Furtivo"; //Ele só pode ver o laço quando for atingido
+            } else if (localizacaoSuspeito.equals(LocalizacaoSuspeito.AGUA)) {
+                arma = "Congelador instantâneo"; //Congele a água onde o alien está e prenda-o assim mesmo
+                abordagem = "Enérgico"; //Se deixar ele nadar, você nunca mais o alcançará
+            } else if (localizacaoSuspeito.equals(LocalizacaoSuspeito.TERRA)) {
+                arma = "Taser"; //Assim como a jaula, apenas um taser mesmo. O alien ficará paralisado pela surpresa (ou pelo choque).
+                abordagem = "Paciente"; //Tenha calma e mire bem
+            }
+        }
+
+        return new EhPatoResponseDTO(false, arma, abordagem);
+    }
+
+    private APIEhPatoResponseDTO verificarEhPato(EhPatoRequestDTO ehPatoResquestDTO) {
+        HttpHeaders headers = new HttpHeaders(); //Cria os headers da requisição
         headers.set("Content-Type", "application/json");
 
+        //Cria o body da requisição convertendo os campos para os nomes e formatos esperados pela API Python
         Map<String, Object> body = new HashMap<>();
 
         body.put("esverdeamento", ehPatoResquestDTO.getEsverdeamento());
@@ -43,41 +85,10 @@ public class EhPatoService {
 
         HttpEntity<String> requestEntity = new HttpEntity(body, headers);
 
-        ResponseEntity<APIEhPatoResponseDTO> responseAPI = restTemplate.exchange(apiUrl, HttpMethod.PUT, requestEntity, APIEhPatoResponseDTO.class);
+        //Dispara requisição
+        ResponseEntity<APIEhPatoResponseDTO> response = restTemplate.exchange(API_IA_URL, HttpMethod.PUT, requestEntity, APIEhPatoResponseDTO.class);
 
-        EhPatoResponseDTO response = new EhPatoResponseDTO();
-
-        if (responseAPI.getBody().isEhPato()) {
-            response.setEhPato(true);
-            response.setArmaRecomendada("");
-
-            return response;
-        }
-
-        response.setEhPato(false);
-        response.setArmaRecomendada(escolherArma(ehPatoResquestDTO.getLocalizacaoSuspeito(), ehPatoResquestDTO.isEmBando()));
-
-        return response;
-    }
-
-    private String escolherArma(LocalizacaoSuspeito localizacaoSuspeito, boolean emBando) {
-        if (emBando) {
-            if (localizacaoSuspeito.equals(LocalizacaoSuspeito.AR)) {
-                return "Aspirador de pó nuclear"; //Aponte para o ar e sugue os aliens direto para a prisão
-            } else if (localizacaoSuspeito.equals(LocalizacaoSuspeito.AGUA)) {
-                return "Rede de pesca de adamantium"; //Lance-a e certifique-se de acertar todos eles
-            } else if (localizacaoSuspeito.equals(LocalizacaoSuspeito.TERRA)) {
-                return "Jaula gigante"; //Apenas uma boa e velha jaula mesmo. Simples e eficaz.
-            }
-        } else {
-            if (localizacaoSuspeito.equals(LocalizacaoSuspeito.AR)) {
-                return "Laço teleguiado"; //Segure firme, pois ele vai tentar fugir
-            } else if (localizacaoSuspeito.equals(LocalizacaoSuspeito.AGUA)) {
-                return "Congelador instantâneo"; //Congele a água onde o alien está e prenda-o assim mesmo
-            } else if (localizacaoSuspeito.equals(LocalizacaoSuspeito.TERRA)) {
-                return "Taser"; //Assim como a jaula, apenas um taser mesmo. O alien ficará paralisado pela surpresa (ou pelo choque).
-            }
-        }
-        return "";
+        //Retorna o body recebido
+        return response.getBody();
     }
 }
