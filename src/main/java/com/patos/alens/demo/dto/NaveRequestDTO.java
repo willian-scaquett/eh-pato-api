@@ -5,6 +5,7 @@ import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import com.patos.alens.demo.enumerated.CorNave;
 import com.patos.alens.demo.enumerated.GrauAvaria;
 import com.patos.alens.demo.enumerated.LocalQueda;
+import com.patos.alens.demo.enumerated.PoderioBelico;
 import com.patos.alens.demo.enumerated.PotencialTecnologico;
 import com.patos.alens.demo.enumerated.TipoCombustivel;
 import io.swagger.v3.oas.annotations.media.Schema;
@@ -26,7 +27,7 @@ public class NaveRequestDTO {
     private String nomeNave;
     private CorNave corNave;
     private LocalQueda localQuedaNave;
-    private String armamentoNave;
+    private PoderioBelico armamentoNave;
     @Schema(example = "LAGRIMAS_DE_UNICORNIO")
     private TipoCombustivel tipoCombustivel;
     private List<Long> listaDeTripulantes;
@@ -40,7 +41,7 @@ public class NaveRequestDTO {
     private LocalDateTime atualizadoEm;
 
     public NaveRequestDTO(PotencialTecnologico potencialTecnologico, GrauAvaria grauAvaria,
-        List<Long> listaDeTripulantes, TipoCombustivel tipoCombustivel, String armamentoNave,
+        List<Long> listaDeTripulantes, TipoCombustivel tipoCombustivel, PoderioBelico armamentoNave,
         LocalQueda localQuedaNave, CorNave corNave, String nomeNave) {
         this.potencialTecnologico = potencialTecnologico;
         this.grauAvaria = grauAvaria;

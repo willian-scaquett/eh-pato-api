@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("nave")
+@CrossOrigin
 public class NaveController {
 
     @Autowired
@@ -18,10 +19,12 @@ public class NaveController {
     public ResponseEntity<?> listaNaves() {
         return this.naveService.listaNaves();
     }
+    
     @PostMapping
     public ResponseEntity<?> criaNave(@RequestBody NaveRequestDTO naveResponseDTO) {
         return this.naveService.criaNave(naveResponseDTO);
     }
+
     @GetMapping(value = "/{idNave}")
     public ResponseEntity<?> buscaNavePeloId(@PathVariable Long idNave) {
         return this.naveService.buscaNavePeloId(idNave);
@@ -31,6 +34,7 @@ public class NaveController {
     public ResponseEntity<?> apagaNave(@PathVariable Long idNave) {
         return this.naveService.apagaNave(idNave);
     }
+
     @PutMapping(value = "/{idNave}")
     public ResponseEntity<?> atualizaNave(@PathVariable Long idNave, @RequestBody NaveRequestDTO naveResponseDTO) {
         return this.naveService.atualizaNave(idNave, naveResponseDTO);

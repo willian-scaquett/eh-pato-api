@@ -39,7 +39,6 @@ public class NaveService {
             .stream()
                 .map(id -> this.tripulanteRepository.findById(id).orElse(null))
                 .toList();
-        naveEntity.setListaDeTripulantes(tripulanteEntityList);
         naveRepository.save(naveEntity);
 
         return ResponseEntity.ok(naveEntity);
@@ -52,10 +51,6 @@ public class NaveService {
         if (naveEntity == null) {
             return ResponseEntity.notFound().build();
         }
-        List<TripulanteEntity> tripulanteEntityList = naveEntity.getListaDeTripulantes();
-
-        Long totalTripulantesMortos = tripulanteEntityList.stream()
-            .filter(tripulante -> !tripulante.estaVivo()).count();
 
         NaveResponseDTO naveResponseDTO = new NaveResponseDTO();
         naveResponseDTO.setNomeNave(naveEntity.getNomeNave());
@@ -63,11 +58,11 @@ public class NaveService {
         naveResponseDTO.setLocalQuedaNave(naveEntity.getLocalQuedaNave());
         naveResponseDTO.setArmamentoNave(naveEntity.getArmamentoNave());
         naveResponseDTO.setTipoCombustivel(naveEntity.getTipoCombustivel());
-        naveResponseDTO.setListaDeTripulantes(naveEntity.getListaDeTripulantes());
         naveResponseDTO.setGrauAvaria(naveEntity.getGrauAvaria());
         naveResponseDTO.setPotencialTecnologico(naveEntity.getPotencialTecnologico());
-        naveResponseDTO.setTotalTripulantes((long) naveEntity.getListaDeTripulantes().size());
-        naveResponseDTO.setTotalTripulantesMortos(totalTripulantesMortos);
+        naveResponseDTO.setTotalTripulanteBem(naveEntity.getTotalTripulanteBem());
+        naveResponseDTO.setTotalTripulanteFerido(naveEntity.getTotalTripulanteFerido());
+        naveResponseDTO.setTotalTripulanteFoiComDeus(naveEntity.getTotalTripulanteFoiComDeus());
 
         return ResponseEntity.ok(naveResponseDTO);
     }
@@ -90,11 +85,7 @@ public class NaveService {
             return ResponseEntity.notFound().build();
         }
         naveEntity.atualizaNave(naveRequestDTO);
-        if (naveRequestDTO.getListaDeTripulantes() != null) {
-            List<TripulanteEntity> tripulanteEntityList = naveRequestDTO.getListaDeTripulantes()
-                .stream().map(id -> this.tripulanteRepository.findById(id).orElse(null)).toList();
-            naveEntity.setListaDeTripulantes(tripulanteEntityList);
-        }
+
         this.naveRepository.save(naveEntity);
         return ResponseEntity.ok(naveEntity);
     }
