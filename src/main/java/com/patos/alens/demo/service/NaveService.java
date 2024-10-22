@@ -61,8 +61,6 @@ public class NaveService {
         naveResponseDTO.setTotalTripulanteBem(nave.getTotalTripulanteBem());
         naveResponseDTO.setTotalTripulanteFerido(nave.getTotalTripulanteFerido());
         naveResponseDTO.setTotalTripulanteFoiComDeus(nave.getTotalTripulanteFoiComDeus());
-        naveResponseDTO.setCriadoEm(nave.getCriadoEm());
-        naveResponseDTO.setAtualizadoEm(nave.getAtualizadoEm());
 
         return ResponseEntity.ok(naveResponseDTO);
     }

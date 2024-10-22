@@ -30,19 +30,18 @@ public class NaveResponseDTO {
     private Long totalTripulanteBem;
     private Long totalTripulanteFerido;
     private Long totalTripulanteFoiComDeus;
-    private LocalDateTime criadoEm;
-    private LocalDateTime atualizadoEm;
 
     public NaveResponseDTO(Nave nave) {
         this.id = nave.getId();
-        this.id = nave.getId();
-        this.id = nave.getId();
-        this.id = nave.getId();
-        this.id = nave.getId();
-        this.id = nave.getId();
-        this.id = nave.getId();
-        this.id = nave.getId();
-        this.id = nave.getId();
-        this.id = nave.getId();
+        this.nome = nave.getNome();
+        this.cor = nave.getCor().getNome();
+        this.localQueda = nave.getLocalQueda().getNome();
+        this.armamento = nave.getArmamento().getNome();
+        this.tipoCombustivel = nave.getTipoCombustivel().getNome();
+        this.grauAvaria = nave.getGrauAvaria().getNomeExibicao();
+        this.potencialTecnologico = nave.getPotencialTecnologico().getNomeExibicao();
+        this.totalTripulanteBem = nave.getTotalTripulanteBem();
+        this.totalTripulanteFerido = nave.getTotalTripulanteFerido();
+        this.totalTripulanteFoiComDeus = nave.getTotalTripulanteFoiComDeus();
     }
 }
