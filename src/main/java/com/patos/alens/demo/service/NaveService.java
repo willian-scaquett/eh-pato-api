@@ -8,6 +8,7 @@ import com.patos.alens.demo.repository.NaveRepository;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.apache.coyote.BadRequestException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
@@ -15,8 +16,10 @@ import org.springframework.stereotype.Service;
 @Service
 public class NaveService {
 
-    @Autowired
-    NaveRepository naveRepository;
+    private final NaveRepository naveRepository;
+    public NaveService(NaveRepository naveRepository) {
+        this.naveRepository = naveRepository;
+    }
 
     public List<NaveResponseDTO> listaNaves() {
         List<NaveResponseDTO> response = new ArrayList<>();
@@ -26,7 +29,13 @@ public class NaveService {
         return response;
     }
 
-    public ResponseEntity<?> criaNave(NaveRequestDTO naveRequestDTO) {
+    public Nave criaNave(NaveRequestDTO naveRequestDTO) throws BadRequestException {
+
+        boolean naveExiste = naveRepository.existsByNome(naveRequestDTO.getNome());
+
+        if (naveExiste) {
+            throw new BadRequestException();
+        }
 
         Nave nave = new Nave();
         nave.setPotencialTecnologico(naveRequestDTO.getPotencialTecnologico());
@@ -39,7 +48,7 @@ public class NaveService {
 
         naveRepository.save(nave);
 
-        return ResponseEntity.ok(nave);
+        return nave;
 
     }
 
@@ -51,6 +60,7 @@ public class NaveService {
         }
 
         NaveResponseDTO naveResponseDTO = new NaveResponseDTO();
+        naveResponseDTO.setId(nave.getId());
         naveResponseDTO.setNome(nave.getNome());
         naveResponseDTO.setCor(nave.getCor().getNome());
         naveResponseDTO.setLocalQueda(nave.getLocalQueda().getNome());
@@ -75,12 +85,18 @@ public class NaveService {
 
     }
 
-    public ResponseEntity<?> atualizaNave(Long idNave, NaveRequestDTO naveRequestDTO) {
+    public ResponseEntity<?> atualizaNave(Long idNave, NaveRequestDTO naveRequestDTO) throws BadRequestException {
 
         Nave nave = this.naveRepository.findById(idNave).orElse(null);
 
         if (nave == null) {
             return ResponseEntity.notFound().build();
+        }
+
+        boolean naveExiste = naveRepository.existsByNome(naveRequestDTO.getNome());
+
+        if (naveExiste) {
+            throw new BadRequestException();
         }
         nave.atualizaNave(naveRequestDTO);
 

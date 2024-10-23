@@ -3,6 +3,12 @@ package com.patos.alens.demo.controller;
 import com.patos.alens.demo.dto.NaveRequestDTO;
 import com.patos.alens.demo.dto.NaveResponseDTO;
 import com.patos.alens.demo.service.NaveService;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.media.Schema;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.responses.ApiResponses;
+import io.swagger.v3.oas.annotations.tags.Tag;
+import org.apache.coyote.BadRequestException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -15,6 +21,7 @@ import org.springframework.web.bind.annotation.*;
 @RestController
 @RequestMapping("nave")
 @CrossOrigin
+@Tag(name = "Nave controller")
 public class NaveController {
 
     private final NaveService naveService;
@@ -26,55 +33,77 @@ public class NaveController {
     /**
      * Lista todas as naves cadastradas.
      *
-     * @return the response entity
+     * @return todas as naves cadastradas
      */
-        @GetMapping("/listarTodas")
+    @ApiResponses({
+            @ApiResponse(responseCode = "200", description = "Lista de todas as naves")
+    })
+    @GetMapping("/listarTodas")
     public ResponseEntity<?> listaNaves() {
         return ResponseEntity.ok(naveService.listaNaves());
     }
 
     /**
-     * Cria nave response entity.
+     * Cria uma nova nave.
      *
-     * @param naveResponseDTO the nave response dto
-     * @return the response entity
+     * @param naveResponseDTO nave que será criada.
+     * @return nave criada
      */
     @PostMapping
-    public ResponseEntity<?> criaNave(@RequestBody NaveRequestDTO naveResponseDTO) {
-        return this.naveService.criaNave(naveResponseDTO);
+    @Operation(summary = "Endpoint responsável por cadastrar uma nova nave")
+    @ApiResponses({
+            @ApiResponse(responseCode = "404", description = "Nave não encontrada"),
+            @ApiResponse(responseCode = "200", description = "Nave criada com sucesso"),
+            @ApiResponse(responseCode = "400", description = "Nome de nave duplicado")
+    })
+    public ResponseEntity<?> criaNave(@RequestBody NaveRequestDTO naveResponseDTO) throws BadRequestException {
+        return ResponseEntity.ok(this.naveService.criaNave(naveResponseDTO));
     }
 
     /**
-     * Busca nave pelo id response entity.
+     * Busca nave pelo identificador
      *
-     * @param idNave the id nave
-     * @return the response entity
+     * @param idNave identificador da nave
+     * @return nave encontrada
      */
     @GetMapping(value = "/{idNave}")
+    @Operation(summary = "Endpoint responsável por buscar uma nave atráves do identificador")
+    @ApiResponses({
+            @ApiResponse(responseCode = "404", description = "Nave não encontrada"),
+            @ApiResponse(responseCode = "200", description = "Nave encontrada com sucesso")
+    })
     public ResponseEntity<?> buscaNavePeloId(@PathVariable Long idNave) {
         return this.naveService.buscaNavePeloId(idNave);
     }
 
     /**
-     * Apaga nave response entity.
+     * Apaga uma nave atráves do identificador.
      *
-     * @param idNave the id nave
-     * @return the response entity
+     * @param idNave identificador da nave
+     * @return status code
      */
+    @ApiResponses({
+            @ApiResponse(responseCode = "404", description = "Nave não encontrada"),
+            @ApiResponse(responseCode = "204", description = "Máquina excluída com sucesso")
+    })
     @DeleteMapping(value = "/{idNave}")
     public ResponseEntity<?> apagaNave(@PathVariable Long idNave) {
         return this.naveService.apagaNave(idNave);
     }
 
     /**
-     * Atualiza nave response entity.
+     * Atualiza uma nave atráves de um {@link NaveResponseDTO} e seu identificador.
      *
-     * @param idNave          the id nave
-     * @param naveResponseDTO the nave response dto
-     * @return the response entity
+     * @param idNave          identificador da nave
+     * @param naveResponseDTO atualização da nave
+     * @return nave atualizada
      */
+    @ApiResponses({
+            @ApiResponse(responseCode = "404", description = "Nave não encontrada"),
+            @ApiResponse(responseCode = "200", description = "Nave atualizada com sucesso")
+    })
     @PutMapping(value = "/{idNave}")
-    public ResponseEntity<?> atualizaNave(@PathVariable Long idNave, @RequestBody NaveRequestDTO naveResponseDTO) {
+    public ResponseEntity<?> atualizaNave(@PathVariable Long idNave, @RequestBody NaveRequestDTO naveResponseDTO) throws BadRequestException {
         return this.naveService.atualizaNave(idNave, naveResponseDTO);
     }
 }
