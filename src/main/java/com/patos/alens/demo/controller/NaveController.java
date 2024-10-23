@@ -1,6 +1,7 @@
 package com.patos.alens.demo.controller;
 
 import com.patos.alens.demo.dto.NaveRequestDTO;
+import com.patos.alens.demo.dto.ResponseDTO;
 import com.patos.alens.demo.service.NaveService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
@@ -47,19 +48,15 @@ public class NaveController {
         return ResponseEntity.ok(naveService.criarNave(naveResponseDTO));
     }
 
-    /**
-     * Apaga uma nave atráves do identificador.
-     *
-     * @param idNave identificador da nave
-     * @return status code
-     */
+    @Operation(summary = "Endpoint responsável por apagar uma nave através do ID informado.")
     @ApiResponses({
-            @ApiResponse(responseCode = "404", description = "Nave não encontrada"),
-            @ApiResponse(responseCode = "204", description = "Máquina excluída com sucesso")
+            @ApiResponse(responseCode = "200", description = "Nave excluída com sucesso"),
+            @ApiResponse(responseCode = "404", description = "Nave não encontrada")
     })
-    @DeleteMapping("/{idNave}")
-    public ResponseEntity<?> apagaNave(@PathVariable Long idNave) {
-        return this.naveService.apagaNave(idNave);
+    @DeleteMapping("/apagar/{idNave}")
+    public ResponseEntity<?> apagarNave(@PathVariable Long idNave) throws BadRequestException {
+        naveService.apagarNave(idNave);
+        return ResponseEntity.ok(new ResponseDTO("Sucesso"));
     }
 
     /**

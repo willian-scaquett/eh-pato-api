@@ -33,7 +33,7 @@ public class NaveService {
     public NaveResponseDTO criarNave(NaveRequestDTO naveRequestDTO) throws BadRequestException {
         //Verifica se nome já existe
         if (naveRepository.existsByNome(naveRequestDTO.getNome())) {
-            throw new BadRequestException("Nome de nave duplicado");
+            throw new BadRequestException();
         }
 
         //Define os atributos categoria e periculosidade da nave criada conforme o DTO
@@ -43,14 +43,15 @@ public class NaveService {
         return new NaveResponseDTO(naveRepository.save(nave));
     }
 
-    public ResponseEntity<?> apagaNave(Long id) {
+    public void apagarNave(Long id) throws BadRequestException {
+        //Busca a nave a ser apagada
         Nave nave = this.naveRepository.findById(id).orElse(null);
+        //Caso ela não exista, retorna um bad request
         if (nave == null) {
-            return ResponseEntity.notFound().build();
+            throw new BadRequestException();
         }
+        //Apaga a nave
         naveRepository.deleteById(id);
-        return ResponseEntity.noContent().build();
-
     }
 
     public ResponseEntity<?> atualizaNave(Long idNave, NaveRequestDTO naveRequestDTO) throws BadRequestException {
@@ -203,7 +204,7 @@ public class NaveService {
         final int notaCorte = 18;
 
         if ((poderArmas > notaCorte || poderCombustivel > notaCorte)
-                        && (totalTripulanteBem + (totalTripulanteFerido > 0 ? totalTripulanteFerido / 2 : 0) >= 20)) {
+                && (totalTripulanteBem + (totalTripulanteFerido > 0 ? totalTripulanteFerido / 2 : 0) >= 20)) {
             return Classificacao.AMEACA_EM_POTENCIAL;
         }
 
