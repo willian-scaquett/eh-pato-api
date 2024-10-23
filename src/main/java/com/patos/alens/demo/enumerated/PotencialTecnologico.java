@@ -11,11 +11,12 @@ import lombok.Getter;
 @Getter
 @AllArgsConstructor
 public enum PotencialTecnologico {
-    PRIMITIVA("Primitiva"),
-    AVANCADA("Avançada"),
-    SOBERANA("Soberana"),
-    DIVINA("Divina"),
-    TRANSCENDENTE("Transcendente");
+    PRIMITIVA("Primitiva", 2),
+    AVANCADA("Avançada", 4),
+    SOBERANA("Soberana", 6),
+    DIVINA("Divina", 8),
+    TRANSCENDENTE("Transcendente", 10);
 
     private final String nome;
+    private final int bonus;
 }

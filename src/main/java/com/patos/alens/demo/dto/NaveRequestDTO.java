@@ -1,15 +1,8 @@
 package com.patos.alens.demo.dto;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
-import com.patos.alens.demo.enumerated.Cor;
-import com.patos.alens.demo.enumerated.GrauAvaria;
-import com.patos.alens.demo.enumerated.LocalQueda;
-import com.patos.alens.demo.enumerated.Armamento;
-import com.patos.alens.demo.enumerated.PotencialTecnologico;
-import com.patos.alens.demo.enumerated.TipoCombustivel;
+import com.patos.alens.demo.enumerated.*;
 import io.swagger.v3.oas.annotations.media.Schema;
-import java.time.LocalDateTime;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
@@ -25,43 +18,21 @@ import lombok.NoArgsConstructor;
 public class NaveRequestDTO {
 
     private String nome;
+    @Schema(example = "AMARELA")
     private Cor cor;
+    @Schema(example = "PEQUENA")
+    private Tamanho tamanho;
+    @Schema(example = "AMERICA")
     private LocalQueda localQueda;
+    @Schema(example = "BOMBA")
     private Armamento armamento;
-    @Schema(example = "LAGRIMAS_DE_UNICORNIO")
+    @Schema(example = "ESPRESSO_QUANTICO")
     private TipoCombustivel tipoCombustivel;
-    @Schema(example = "PERDA_TOTAL")
+    @Schema(example = "SEM_AVARIAS")
     private GrauAvaria grauAvaria;
-    @Schema(example = "AVANCADA")
+    @Schema(example = "PRIMITIVA")
     private PotencialTecnologico potencialTecnologico;
-    private Long totalTripulanteBem;
-    private Long totalTripulanteFerido;
-    private Long totalTripulanteFoiComDeus;
-    @JsonIgnore
-    private LocalDateTime criadoEm;
-    @JsonIgnore
-    private LocalDateTime atualizadoEm;
-
-    /**
-     * Inicializador de uma nova nave.
-     *
-     * @param potencialTecnologico potencial tecnologico
-     * @param grauAvaria           grau avaria
-     * @param tipoCombustivel      tipo combustivel
-     * @param armamento            armamento
-     * @param localQueda           local queda
-     * @param cor                  cor
-     * @param nome                 nome
-     */
-    public NaveRequestDTO(PotencialTecnologico potencialTecnologico, GrauAvaria grauAvaria,
-                          TipoCombustivel tipoCombustivel, Armamento armamento, LocalQueda localQueda, Cor cor, String nome) {
-        this.potencialTecnologico = potencialTecnologico;
-        this.grauAvaria = grauAvaria;
-        this.tipoCombustivel = tipoCombustivel;
-        this.armamento = armamento;
-        this.localQueda = localQueda;
-        this.cor = cor;
-        this.nome = nome;
-    }
-
+    private int totalTripulanteBem;
+    private int totalTripulanteFerido;
+    private int totalTripulanteFoiComDeus;
 }

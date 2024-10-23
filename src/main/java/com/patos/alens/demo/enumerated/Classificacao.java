@@ -11,10 +11,10 @@ import lombok.Getter;
 @AllArgsConstructor
 public enum Classificacao {
     SUCATA_ESPACIAL("Sucata Espacial"),
-    JOIA_TECNOLOGICA("Joia Tecnológica"),
-    ARSENAL_ALIENIGENA("Arsenal Alienígena"),
     AMEACA_EM_POTENCIAL("Ameaça em Potencial"),
-    FONTE_DE_ENERGIA("Fonte de Energia Alternativa");
+    FONTE_DE_ENERGIA("Fonte de Energia Alternativa"),
+    ARSENAL_ALIENIGENA("Arsenal Alienígena"),
+    JOIA_TECNOLOGICA("Joia Tecnológica");
 
     private final String nome;
 }

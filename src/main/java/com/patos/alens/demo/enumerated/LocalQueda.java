@@ -11,16 +11,17 @@ import lombok.Getter;
 @Getter
 @AllArgsConstructor
 public enum LocalQueda {
-    AMERICA("América"),
-    AFRICA("África"),
-    ASIA("Ásia"),
-    EUROPA("Europa"),
-    OCEANIA("Oceania"),
-    OCEANO_ATLANTICO("Oceano Atlântico"),
-    OCEANO_PACIFICO("Oceano Pacífico"),
-    OCEANO_INDICO("Oceano Índico"),
-    OCEANO_GLACIAL_ANTARTICO("Oceano Glacial Antártico"),
-    OCEANO_GLACIAL_ARTICO("Oceano Glacial Ártico");
+    AMERICA("América", 1),
+    AFRICA("África", 2),
+    ASIA("Ásia", 4),
+    EUROPA("Europa", 2),
+    OCEANIA("Oceania", 4),
+    OCEANO_ATLANTICO("Oceano Atlântico", 6),
+    OCEANO_PACIFICO("Oceano Pacífico", 7),
+    OCEANO_INDICO("Oceano Índico", 8),
+    OCEANO_GLACIAL_ANTARTICO("Oceano Glacial Antártico", 10),
+    OCEANO_GLACIAL_ARTICO("Oceano Glacial Ártico", 10);
 
     private final String nome;
+    private final int perigo;
 }

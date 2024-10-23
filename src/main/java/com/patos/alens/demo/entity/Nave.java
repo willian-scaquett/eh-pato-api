@@ -4,69 +4,98 @@ import com.patos.alens.demo.dto.NaveRequestDTO;
 import com.patos.alens.demo.enumerated.*;
 import jakarta.persistence.*;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
 import java.time.LocalDateTime;
 
 /**
- * A classe NaveEntity é responsável por representar a tabela nave do
- * banco de dados, sendo que cada instância dessa entidade corresponde a uma linha da tabela.
+ * A classe Nave é responsável por representar a tabela nave do banco de dados,
+ * sendo que cada instância dessa entidade corresponde a uma linha da tabela.
  *
  * @author Kaique Queiros kaique_q@outlook.com
  */
-@Entity
 @Data
-@Table(name = "nave")
+@NoArgsConstructor
+@Entity
 public class Nave {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id", nullable = false)
+    @Column(nullable = false)
     private Long id;
 
-    @Column(name = "nome", length = 50, nullable = false, unique = true)
+    @Column(nullable = false, unique = true)
     private String nome;
 
     @Enumerated(EnumType.STRING)
-    @Column(name = "cor", length = 50)
+    @Column
     private Cor cor;
 
     @Enumerated(EnumType.STRING)
-    @Column(name = "local_queda", length = 50)
+    @Column
+    private Tamanho tamanho;
+
+    @Enumerated(EnumType.STRING)
+    @Column
     private LocalQueda localQueda;
 
-    @Column(name = "armamento", length = 100)
+    @Column
     @Enumerated(EnumType.STRING)
     private Armamento armamento;
 
-    @Column(name = "tipo_combustivel", length = 50)
+    @Column
     @Enumerated(EnumType.STRING)
     private TipoCombustivel tipoCombustivel;
 
-    @Column(name = "grau_avaria", length = 50)
+    @Column
     @Enumerated(EnumType.STRING)
     private GrauAvaria grauAvaria;
 
-    @Column(name = "potencial_tecnologico", length = 50)
+    @Column
     @Enumerated(EnumType.STRING)
     private PotencialTecnologico potencialTecnologico;
 
-    @Column(name = "total_tripulante_bem")
-    private Long totalTripulanteBem;
+    @Column
+    private Integer totalTripulanteBem;
 
-    @Column(name = "total_tripulante_ferido")
-    private Long totalTripulanteFerido;
+    @Column
+    private Integer totalTripulanteFerido;
 
-    @Column(name = "total_tripulante_foi_com_deus")
-    private Long totalTripulanteFoiComDeus;
+    @Column
+    private Integer totalTripulanteFoiComDeus;
+
+    @Column
+    @Enumerated(EnumType.STRING)
+    private Periculosidade periculosidade;
+
+    @Column
+    @Enumerated(EnumType.STRING)
+    private Classificacao classificacao;
 
     @CreationTimestamp
-    @Column(name = "criado_em")
+    @Column
     private LocalDateTime criadoEm;
 
     @UpdateTimestamp
-    @Column(name = "atualizado_em")
+    @Column
     private LocalDateTime atualizadoEm;
+
+    public Nave (NaveRequestDTO naveRequestDTO) {
+        this.nome = naveRequestDTO.getNome();
+        this.cor = naveRequestDTO.getCor();
+        this.tamanho = naveRequestDTO.getTamanho();
+        this.localQueda = naveRequestDTO.getLocalQueda();
+        this.armamento = naveRequestDTO.getArmamento();
+        this.tipoCombustivel = naveRequestDTO.getTipoCombustivel();
+        this.totalTripulanteBem = naveRequestDTO.getTotalTripulanteBem();
+        this.totalTripulanteFerido = naveRequestDTO.getTotalTripulanteFerido();
+        this.totalTripulanteFoiComDeus = naveRequestDTO.getTotalTripulanteFoiComDeus();
+        this.grauAvaria = naveRequestDTO.getGrauAvaria();
+        this.potencialTecnologico = naveRequestDTO.getPotencialTecnologico();
+        this.criadoEm = LocalDateTime.now();
+    }
 
     public void atualizaNave(NaveRequestDTO dto) {
         if (dto.getNome() != null) {

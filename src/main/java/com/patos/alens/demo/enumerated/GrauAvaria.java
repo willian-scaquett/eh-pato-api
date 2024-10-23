@@ -11,11 +11,12 @@ import lombok.Getter;
 @Getter
 @AllArgsConstructor
 public enum GrauAvaria {
-    SEM_AVARIAS("Sem Avarias"),
-    PRATICAMENTE_INTACTA("Praticamente Intacta"),
-    PARCIALMENTE_DESTRUIDA("Parcialmente Destruída"),
-    MUITO_DESTRUIDA("Muito Destruída"),
-    PERDA_TOTAL("Perda Total");
+    SEM_AVARIAS("Sem Avarias", 0),
+    PRATICAMENTE_INTACTA("Praticamente Intacta", 6),
+    PARCIALMENTE_DESTRUIDA("Parcialmente Destruída", 15),
+    MUITO_DESTRUIDA("Muito Destruída", 24),
+    PERDA_TOTAL("Perda Total", 30);
 
     private final String nome;
+    private final int punicao;
 }

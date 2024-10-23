@@ -11,10 +11,11 @@ import lombok.Getter;
 @Getter
 @AllArgsConstructor
 public enum Tamanho {
-    PEQUENA("Pequena"),
-    MEDIA("Média"),
-    GRANDE("Grande"),
-    COLOSSAL("Colossal");
+    PEQUENA("Pequena", 1),
+    MEDIA("Média", 4),
+    GRANDE("Grande", 7),
+    COLOSSAL("Colossal", 10);
 
     private final String nome;
+    private final int bonus;
 }

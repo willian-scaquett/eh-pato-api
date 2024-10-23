@@ -10,11 +10,11 @@ import lombok.Getter;
 @Getter
 @AllArgsConstructor
 public enum Periculosidade {
-    SEGURO("Seguro"),
-    CAUTELA("Cautela"),
-    AMEAÇA_POTENCIAL("Ameaça Potencial"),
-    AMEAÇA_IMINENTE("Ameaça Iminente"),
-    EXTINCAO_ASSEGURADA("Extinção Assegurada");
+    BAIXISSIMA("Baixíssima"),
+    BAIXA("Baixa"),
+    MEDIA("Média"),
+    ALTA("Alta"),
+    ALTISSIMA("Altíssima");
 
     private final String nome;
 }

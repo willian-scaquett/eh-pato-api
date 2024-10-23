@@ -27,11 +27,7 @@ public class NaveController {
         this.naveService = naveService;
     }
 
-    /**
-     * Lista todas as naves cadastradas.
-     *
-     * @return todas as naves cadastradas
-     */
+    @Operation(summary = "Endpoint responsável por listar todas as naves")
     @ApiResponses({
             @ApiResponse(responseCode = "200", description = "Lista de todas as naves")
     })
@@ -40,37 +36,15 @@ public class NaveController {
         return ResponseEntity.ok(naveService.listaNaves());
     }
 
-    /**
-     * Cria uma nova nave.
-     *
-     * @param naveResponseDTO nave que será criada.
-     * @return nave criada
-     */
-    @PostMapping
-    @Operation(summary = "Endpoint responsável por cadastrar uma nova nave")
+    @Operation(summary = "Endpoint responsável por cadastrar uma nova nave, definir os atributos periculosidade " +
+            "e classifcacao e retornar um DTO com esses campos já definidos")
     @ApiResponses({
-            @ApiResponse(responseCode = "404", description = "Nave não encontrada"),
             @ApiResponse(responseCode = "200", description = "Nave criada com sucesso"),
             @ApiResponse(responseCode = "400", description = "Nome de nave duplicado")
     })
-    public ResponseEntity<?> criaNave(@RequestBody NaveRequestDTO naveResponseDTO) throws BadRequestException {
-        return ResponseEntity.ok(naveService.criaNave(naveResponseDTO));
-    }
-
-    /**
-     * Busca nave pelo identificador
-     *
-     * @param idNave identificador da nave
-     * @return nave encontrada
-     */
-    @GetMapping("/{idNave}")
-    @Operation(summary = "Endpoint responsável por buscar uma nave atráves do identificador")
-    @ApiResponses({
-            @ApiResponse(responseCode = "404", description = "Nave não encontrada"),
-            @ApiResponse(responseCode = "200", description = "Nave encontrada com sucesso")
-    })
-    public ResponseEntity<?> buscaNavePeloId(@PathVariable Long idNave) {
-        return this.naveService.buscaNavePeloId(idNave);
+    @PostMapping("/criar")
+    public ResponseEntity<?> criar(@RequestBody NaveRequestDTO naveResponseDTO) throws BadRequestException {
+        return ResponseEntity.ok(naveService.criarNave(naveResponseDTO));
     }
 
     /**

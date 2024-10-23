@@ -11,12 +11,14 @@ import lombok.Getter;
 @Getter
 @AllArgsConstructor
 public enum Armamento {
-    BOMBA("Bomba"),
-    CANHAO_LAVA("Canhão de lava"),
-    LASER("Laser"),
-    MISSEL("Míssel"),
-    OGIVA_NUCLEAR("Ogiva Nuclear"),
-    SEM_ARMAS("Sem armas");
+    BOMBA("Bomba", 2, 8),
+    CANHAO_LAVA("Canhão de lava", 4, 10),
+    MISSEL("Míssel", 6, 4),
+    LASER("Laser", 8, 2),
+    OGIVA_NUCLEAR("Ogiva Nuclear", 10, 6),
+    SEM_ARMAS("Sem armas", 0, 0);
 
-    private String nome;
+    private final String nome;
+    private final int poder;
+    private final int perigo;
 }
