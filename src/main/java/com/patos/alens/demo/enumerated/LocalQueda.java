@@ -1,32 +1,26 @@
 package com.patos.alens.demo.enumerated;
 
-import java.util.Locale;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
 
 /**
  * A classe LocalQueda é responsável por disponibilizar onde a máquina caiu
  *
  * @author Kaique Queiros kaique_q@outlook.com
  */
+@Getter
+@AllArgsConstructor
 public enum LocalQueda {
-    OCEANO("Oceano"),
-    CONTINENTE("Continente"),
-    SO_DEUS_SABE("Só Deus Sabe");
+    AMERICA("América"),
+    AFRICA("África"),
+    ASIA("Ásia"),
+    EUROPA("Europa"),
+    OCEANIA("Oceania"),
+    OCEANO_ATLANTICO("Oceano Atlântico"),
+    OCEANO_PACIFICO("Oceano Pacífico"),
+    OCEANO_INDICO("Oceano Índico"),
+    OCEANO_GLACIAL_ANTARTICO("Oceano Glacial Antártico"),
+    OCEANO_GLACIAL_ARTICO("Oceano Glacial Ártico");
 
     private final String nome;
-
-    LocalQueda(String nome) {
-        this.nome = nome;
-    }
-
-    public String getNome() {
-        return this.nome;
-    }
-
-    public LocalQueda getByEnum(String localEnum) {
-        try {
-            return LocalQueda.valueOf(localEnum.toUpperCase(Locale.ROOT));
-        } catch (Exception e) {
-            return SO_DEUS_SABE;
-        }
-    }
 }

@@ -1,39 +1,21 @@
 package com.patos.alens.demo.enumerated;
 
-import java.util.Locale;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
 
 /**
- * A classe PoderioBelico é responsável por disponibilizar o poder de armamento que uma nave tem
+ * A classe Armamento é responsável por disponibilizar o poder de armamento que uma nave tem
  *
  * @author Kaique Queiros kaique_q@outloom.com
  */
+@Getter
+@AllArgsConstructor
 public enum Armamento {
-    LASER("Laser"),
+    BOMBA("Bomba"),
     CANHAO_LAVA("Canhão de lava"),
-    MACHINE_GUN("Metralhadora"),
-    RIFLE("Rifle"),
-    TASER("Taser"),
-    PISTOL("Pistola"),
-    BLADE("Lâmina"),
-    SNIPER("Sniper"),
-    BAZOOKA("Bazuca"),
-    DEPLETED_URANIUM_MUNITION("Munição de urânio empobrecido"),
-    BOMB("Bomba");
+    LASER("Laser"),
+    MISSEL("Míssel"),
+    OGIVA_NUCLEAR("Ogiva Nuclear");
+
     private String nome;
-
-    Armamento(String nome) {
-        this.nome = nome;
-    }
-
-    public String getNome() {
-        return this.nome;
-    }
-
-    public Armamento getByEnum(String localEnum) {
-        try {
-            return Armamento.valueOf(localEnum.toUpperCase(Locale.ROOT));
-        } catch (Exception e) {
-            return BOMB;
-        }
-    }
 }

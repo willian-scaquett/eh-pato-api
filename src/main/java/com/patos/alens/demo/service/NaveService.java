@@ -1,8 +1,11 @@
 package com.patos.alens.demo.service;
 
+import com.patos.alens.demo.dto.ListsValoresSelectDTO;
 import com.patos.alens.demo.dto.NaveRequestDTO;
 import com.patos.alens.demo.dto.NaveResponseDTO;
+import com.patos.alens.demo.dto.ValoresSelectDTO;
 import com.patos.alens.demo.entity.Nave;
+import com.patos.alens.demo.enumerated.*;
 import com.patos.alens.demo.repository.NaveRepository;
 
 import java.util.ArrayList;
@@ -55,9 +58,9 @@ public class NaveService {
         naveResponseDTO.setCor(nave.getCor().getNome());
         naveResponseDTO.setLocalQueda(nave.getLocalQueda().getNome());
         naveResponseDTO.setArmamento(nave.getArmamento().getNome());
-        naveResponseDTO.setTipoCombustivel(nave.getTipoCombustivel().getDescricao());
-        naveResponseDTO.setGrauAvaria(nave.getGrauAvaria().getDescricao());
-        naveResponseDTO.setPotencialTecnologico(nave.getPotencialTecnologico().getDescricao());
+        naveResponseDTO.setTipoCombustivel(nave.getTipoCombustivel().getNome());
+        naveResponseDTO.setGrauAvaria(nave.getGrauAvaria().getNome());
+        naveResponseDTO.setPotencialTecnologico(nave.getPotencialTecnologico().getNome());
         naveResponseDTO.setTotalTripulanteBem(nave.getTotalTripulanteBem());
         naveResponseDTO.setTotalTripulanteFerido(nave.getTotalTripulanteFerido());
         naveResponseDTO.setTotalTripulanteFoiComDeus(nave.getTotalTripulanteFoiComDeus());
@@ -86,5 +89,31 @@ public class NaveService {
 
         this.naveRepository.save(nave);
         return ResponseEntity.ok(nave);
+    }
+
+    public ListsValoresSelectDTO getValoresSelectsCadastro() {
+        ListsValoresSelectDTO response = new ListsValoresSelectDTO();
+
+        for (Cor cor : Cor.values()) {
+            response.getCores().add(new ValoresSelectDTO(cor.name(), cor.getNome()));
+        }
+
+        for (LocalQueda localQueda : LocalQueda.values()) {
+            response.getLocais().add(new ValoresSelectDTO(localQueda.name(), localQueda.getNome()));
+        }
+
+        for (TipoCombustivel tipoCombustivel : TipoCombustivel.values()) {
+            response.getCombustiveis().add(new ValoresSelectDTO(tipoCombustivel.name(), tipoCombustivel.getNome()));
+        }
+
+        for (GrauAvaria grauAvaria : GrauAvaria.values()) {
+            response.getGraus().add(new ValoresSelectDTO(grauAvaria.name(), grauAvaria.getNome()));
+        }
+
+        for (PotencialTecnologico potencialTecnologico : PotencialTecnologico.values()) {
+            response.getPotenciais().add(new ValoresSelectDTO(potencialTecnologico.name(), potencialTecnologico.getNome()));
+        }
+
+        return response;
     }
 }

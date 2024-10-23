@@ -1,48 +1,21 @@
 package com.patos.alens.demo.enumerated;
 
-import java.util.Locale;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
 
 /**
  * O enumerador GrauAvaria é responsável por disponibilizar qual é o grau de avaria de uma nave
  *
  * @author Kaique Queiros kaique_q@outlook.com
  */
+@Getter
+@AllArgsConstructor
 public enum GrauAvaria {
-    PERDA_TOTAL("Perda Total", "Restam apenas pedaços flutuando no espaço. Definitivamente, não há volta."),
+    SEM_AVARIAS("Sem Avarias"),
+    PRATICAMENTE_INTACTA("Praticamente Intacta"),
+    PARCIALMENTE_DESTRUIDA("Parcialmente Destruída"),
+    MUITO_DESTRUIDA("Muito Destruída"),
+    PERDA_TOTAL("Perda Total");
 
-    MUITO_DESTRUIDA("Muito Destruída", "Ainda dá para reconhecer que era uma nave... mas é só isso."),
-
-    PARCIALMENTE_DESTRUIDA("Parcialmente Destruída", "Danos sérios, mas algumas partes ainda funcionam. Talvez com muita fita adesiva..."),
-
-    PRATICAMENTE_INTACTA("Praticamente Intacta", "Alguns arranhões aqui e ali, mas nada que impeça o voo."),
-
-    SEM_AVARIAS("Sem Avarias", "Está como nova! Pode decolar para a próxima missão sem preocupações.");
-
-    private final String nomeExibicao;
-    private final String descricao;
-
-    GrauAvaria(String nomeExibicao, String descricao) {
-        this.nomeExibicao = nomeExibicao;
-        this.descricao = descricao;
-    }
-
-    public String getNomeExibicao() {
-        return nomeExibicao;
-    }
-
-    public String getDescricao() {
-        return descricao;
-    }
-
-    @Override
-    public String toString() {
-        return nomeExibicao + " - " + descricao;
-    }
-    public GrauAvaria getByEnum(String localEnum) {
-        try {
-            return GrauAvaria.valueOf(localEnum.toUpperCase(Locale.ROOT));
-        } catch (Exception e) {
-            return SEM_AVARIAS;
-        }
-    }
+    private final String nome;
 }

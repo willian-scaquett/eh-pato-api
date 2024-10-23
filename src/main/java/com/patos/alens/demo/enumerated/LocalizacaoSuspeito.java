@@ -11,5 +11,4 @@ public enum LocalizacaoSuspeito {
     AR("Ar");
 
     private final String nome;
-
 }

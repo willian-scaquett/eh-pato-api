@@ -1,9 +1,7 @@
 package com.patos.alens.demo.controller;
 
 import com.patos.alens.demo.dto.NaveRequestDTO;
-import com.patos.alens.demo.dto.NaveResponseDTO;
 import com.patos.alens.demo.service.NaveService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -28,8 +26,8 @@ public class NaveController {
      *
      * @return the response entity
      */
-        @GetMapping("/listarTodas")
-    public ResponseEntity<?> listaNaves() {
+    @GetMapping("/listarTodas")
+    public ResponseEntity<?> listarTodas() {
         return ResponseEntity.ok(naveService.listaNaves());
     }
 
@@ -50,7 +48,7 @@ public class NaveController {
      * @param idNave the id nave
      * @return the response entity
      */
-    @GetMapping(value = "/{idNave}")
+    @GetMapping("/{idNave}")
     public ResponseEntity<?> buscaNavePeloId(@PathVariable Long idNave) {
         return this.naveService.buscaNavePeloId(idNave);
     }
@@ -61,7 +59,7 @@ public class NaveController {
      * @param idNave the id nave
      * @return the response entity
      */
-    @DeleteMapping(value = "/{idNave}")
+    @DeleteMapping("/{idNave}")
     public ResponseEntity<?> apagaNave(@PathVariable Long idNave) {
         return this.naveService.apagaNave(idNave);
     }
@@ -73,8 +71,13 @@ public class NaveController {
      * @param naveResponseDTO the nave response dto
      * @return the response entity
      */
-    @PutMapping(value = "/{idNave}")
+    @PutMapping("/{idNave}")
     public ResponseEntity<?> atualizaNave(@PathVariable Long idNave, @RequestBody NaveRequestDTO naveResponseDTO) {
         return this.naveService.atualizaNave(idNave, naveResponseDTO);
+    }
+
+    @GetMapping("/valoresSelectsCadastro")
+    public ResponseEntity<?> getValoresSelectsCadastro() {
+        return ResponseEntity.ok(naveService.getValoresSelectsCadastro());
     }
 }
