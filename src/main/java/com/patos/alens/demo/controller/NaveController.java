@@ -70,9 +70,25 @@ public class NaveController {
             @ApiResponse(responseCode = "404", description = "Nave não encontrada"),
             @ApiResponse(responseCode = "200", description = "Nave atualizada com sucesso")
     })
-    @PutMapping("/{idNave}")
+    @PutMapping("/editar/{idNave}")
     public ResponseEntity<?> atualizaNave(@PathVariable Long idNave, @RequestBody NaveRequestDTO naveResponseDTO) throws BadRequestException {
         return this.naveService.atualizaNave(idNave, naveResponseDTO);
+    }
+
+    /**
+     * Busca nave pelo identificador
+     *
+     * @param idNave identificador da nave
+     * @return nave encontrada
+     */
+    @GetMapping("/{idNave}")
+    @Operation(summary = "Endpoint responsável por buscar uma nave atráves do identificador")
+    @ApiResponses({
+            @ApiResponse(responseCode = "200", description = "Nave encontrada com sucesso"),
+            @ApiResponse(responseCode = "404", description = "Nave não encontrada")
+    })
+    public ResponseEntity<?> buscaNavePeloId(@PathVariable Long idNave) throws BadRequestException {
+        return ResponseEntity.ok(naveService.buscaNavePeloId(idNave));
     }
 
     @GetMapping("/valoresSelectsCadastro")

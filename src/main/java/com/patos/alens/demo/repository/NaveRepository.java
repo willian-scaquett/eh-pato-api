@@ -9,4 +9,6 @@ public interface NaveRepository extends JpaRepository<Nave, Long> {
 
     boolean existsByNome(String nome);
 
+    boolean existsByNomeAndIdNot(String nome, Long id);
+
 }

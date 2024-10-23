@@ -62,7 +62,7 @@ public class NaveService {
             return ResponseEntity.notFound().build();
         }
 
-        boolean naveExiste = naveRepository.existsByNome(naveRequestDTO.getNome());
+        boolean naveExiste = naveRepository.existsByNomeAndIdNot(naveRequestDTO.getNome(), idNave);
 
         if (naveExiste) {
             throw new BadRequestException();
@@ -71,6 +71,14 @@ public class NaveService {
 
         this.naveRepository.save(nave);
         return ResponseEntity.ok(nave);
+    }
+
+    public Nave buscaNavePeloId(Long id) throws BadRequestException {
+        Nave nave = this.naveRepository.findById(id).orElse(null);
+        if (nave == null) {
+            throw new BadRequestException();
+        }
+        return nave;
     }
 
     public ListsValoresSelectDTO getValoresSelectsCadastro() {
