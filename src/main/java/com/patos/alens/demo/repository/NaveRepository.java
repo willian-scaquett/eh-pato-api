@@ -7,4 +7,6 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface NaveRepository extends JpaRepository<Nave, Long> {
 
+    boolean existsByNome(String nome);
+
 }

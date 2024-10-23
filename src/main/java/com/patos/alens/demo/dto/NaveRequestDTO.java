@@ -11,6 +11,7 @@ import com.patos.alens.demo.enumerated.TipoCombustivel;
 import io.swagger.v3.oas.annotations.media.Schema;
 import java.time.LocalDateTime;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 /**
  * A classe NaveRequestDTO é responsavel por representar o que corpo da requisição feita a api para
@@ -20,6 +21,7 @@ import lombok.Data;
  */
 @JsonSerialize
 @Data
+@NoArgsConstructor
 public class NaveRequestDTO {
 
     private String nome;
