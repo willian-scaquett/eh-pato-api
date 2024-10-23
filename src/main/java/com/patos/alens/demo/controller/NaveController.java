@@ -54,7 +54,7 @@ public class NaveController {
             @ApiResponse(responseCode = "400", description = "Nome de nave duplicado")
     })
     public ResponseEntity<?> criaNave(@RequestBody NaveRequestDTO naveResponseDTO) throws BadRequestException {
-        return ResponseEntity.ok(this.naveService.criaNave(naveResponseDTO));
+        return ResponseEntity.ok(naveService.criaNave(naveResponseDTO));
     }
 
     /**

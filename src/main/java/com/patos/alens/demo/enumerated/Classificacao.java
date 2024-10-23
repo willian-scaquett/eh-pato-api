@@ -9,12 +9,12 @@ import lombok.Getter;
  */
 @Getter
 @AllArgsConstructor
-public enum Periculosidade {
-    SEGURO("Seguro"),
-    CAUTELA("Cautela"),
-    AMEAÇA_POTENCIAL("Ameaça Potencial"),
-    AMEAÇA_IMINENTE("Ameaça Iminente"),
-    EXTINCAO_ASSEGURADA("Extinção Assegurada");
+public enum Classificacao {
+    SUCATA_ESPACIAL("Sucata Espacial"),
+    JOIA_TECNOLOGICA("Joia Tecnológica"),
+    ARSENAL_ALIENIGENA("Arsenal Alienígena"),
+    AMEACA_EM_POTENCIAL("Ameaça em Potencial"),
+    FONTE_DE_ENERGIA("Fonte de Energia Alternativa");
 
     private final String nome;
 }

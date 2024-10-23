@@ -129,6 +129,10 @@ public class NaveService {
             response.getPotenciais().add(new ValoresSelectDTO(potencialTecnologico.name(), potencialTecnologico.getNome()));
         }
 
+        for (Armamento armamento : Armamento.values()) {
+            response.getArmamentos().add(new ValoresSelectDTO(armamento.name(), armamento.getNome()));
+        }
+
         return response;
     }
 }

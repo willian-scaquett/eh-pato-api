@@ -14,4 +14,5 @@ public class ListsValoresSelectDTO {
     List<ValoresSelectDTO> combustiveis = new ArrayList<>();
     List<ValoresSelectDTO> graus = new ArrayList<>();
     List<ValoresSelectDTO> potenciais = new ArrayList<>();
+    List<ValoresSelectDTO> armamentos = new ArrayList<>();
 }

@@ -15,7 +15,8 @@ public enum Armamento {
     CANHAO_LAVA("Canhão de lava"),
     LASER("Laser"),
     MISSEL("Míssel"),
-    OGIVA_NUCLEAR("Ogiva Nuclear");
+    OGIVA_NUCLEAR("Ogiva Nuclear"),
+    SEM_ARMAS("Sem armas");
 
     private String nome;
 }
