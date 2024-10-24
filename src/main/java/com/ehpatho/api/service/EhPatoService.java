@@ -4,6 +4,8 @@ import com.ehpatho.api.dto.APIEhPatoIAResponseDTO;
 import com.ehpatho.api.dto.EhPatoRequestDTO;
 import com.ehpatho.api.dto.EhPatoResponseDTO;
 import com.ehpatho.api.enumerated.LocalizacaoSuspeito;
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpMethod;
@@ -20,24 +22,30 @@ import java.util.Map;
  *
  * @author Willian Scaquett willian.scaquett@gmail.com
  */
+@Slf4j
 @Service
 public class EhPatoService {
 
     private final RestTemplate restTemplate; //Classe que realiza a comunicação entre as APIs
-    private final String API_IA_URL = "http://0.0.0.0:8000/verificarElemento"; //URL da API Python que consulta a IA
 
-    public EhPatoService(RestTemplate restTemplate) {
+    @Value("${api.ia.url}")
+    private String apiIaUrl; //URL da API Python que consulta a IA
+
+    public EhPatoService(RestTemplate restTemplate, @Value("${api.ia.url}") String apiIaUrl) {
         this.restTemplate = restTemplate;
+        this.apiIaUrl = apiIaUrl;
     }
 
     public EhPatoResponseDTO criarEstrategia(EhPatoRequestDTO ehPatoResquestDTO) {
         //Consulta a API Python com a IA que verifica se o elemento suspeito é alien ou pato
         if (verificarEhPato(ehPatoResquestDTO).isEhPato()) {
             //Avisa que é pato e não recomenda arma nem abordagem
+            log.info("Elemento suspeito identificado como Pato. Nenhuma ação necessária.");
             return new EhPatoResponseDTO(true, null, null);
         }
 
         //Avisa que é alien e recomenda uma arma e uma abordagem conforme a localização e se o elemento está em bando
+        log.info("Elemento suspeito identificado como Alien. Preparando estratégia.");
         return escolherArmaEAbordagem(ehPatoResquestDTO.getLocalizacaoSuspeito(), ehPatoResquestDTO.isEmBando());
     }
 
@@ -69,6 +77,7 @@ public class EhPatoService {
             }
         }
 
+        log.info("Arma escolhida: {}. Abordagem escolhida: {}.", arma, abordagem);
         return new EhPatoResponseDTO(false, arma, abordagem);
     }
 
@@ -92,7 +101,9 @@ public class EhPatoService {
         HttpEntity<String> requestEntity = new HttpEntity(body, headers);
 
         //Dispara requisição
-        ResponseEntity<APIEhPatoIAResponseDTO> response = restTemplate.exchange(API_IA_URL, HttpMethod.PUT, requestEntity, APIEhPatoIAResponseDTO.class);
+        log.info("Enviando requisição para verificar se é pato...");
+        ResponseEntity<APIEhPatoIAResponseDTO> response = restTemplate.exchange(apiIaUrl, HttpMethod.PUT, requestEntity, APIEhPatoIAResponseDTO.class);
+        log.info("Resposta recebida da API IA: {}", response.getBody());
 
         //Retorna o body recebido
         return response.getBody();

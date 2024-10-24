@@ -1,10 +1,9 @@
-package com.ehpatho.api;
+package com.ehpatho.api.service;
 
 import com.ehpatho.api.dto.NaveRequestDTO;
 import com.ehpatho.api.dto.NaveResponseDTO;
 import com.ehpatho.api.enumerated.*;
 import com.ehpatho.api.repository.NaveRepository;
-import com.ehpatho.api.service.NaveService;
 import jakarta.transaction.Transactional;
 import org.apache.coyote.BadRequestException;
 import org.junit.jupiter.api.Assertions;
