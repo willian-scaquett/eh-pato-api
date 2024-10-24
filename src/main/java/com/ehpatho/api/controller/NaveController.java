@@ -41,7 +41,7 @@ public class NaveController {
             "e classifcacao e retornar um DTO com esses campos já definidos")
     @ApiResponses({
             @ApiResponse(responseCode = "200", description = "Nave criada com sucesso"),
-            @ApiResponse(responseCode = "400", description = "Nome de nave duplicado")
+            @ApiResponse(responseCode = "400", description = "Nome de nave já existente")
     })
     @PostMapping("/criar")
     public ResponseEntity<?> criar(@RequestBody NaveRequestDTO naveResponseDTO) throws BadRequestException {
@@ -51,7 +51,7 @@ public class NaveController {
     @Operation(summary = "Endpoint responsável por apagar uma nave através do ID informado.")
     @ApiResponses({
             @ApiResponse(responseCode = "200", description = "Nave excluída com sucesso"),
-            @ApiResponse(responseCode = "400", description = "Nave não encontrada")
+            @ApiResponse(responseCode = "404", description = "Nave não encontrada")
     })
     @DeleteMapping("/apagar/{idNave}")
     public ResponseEntity<?> apagarNave(@PathVariable Long idNave) throws BadRequestException {
@@ -62,7 +62,8 @@ public class NaveController {
     @Operation(summary = "Endpoint responsável por atualizar uma nave através do ID informado e dos dados passados no body.")
     @ApiResponses({
             @ApiResponse(responseCode = "200", description = "Nave atualizada com sucesso"),
-            @ApiResponse(responseCode = "400", description = "Nave não encontrada"),
+            @ApiResponse(responseCode = "400", description = "Nome de nave já existente"),
+            @ApiResponse(responseCode = "404", description = "Nave não encontrada")
     })
     @PutMapping("/editar/{idNave}")
     public ResponseEntity<?> editarNave(@PathVariable Long idNave, @RequestBody NaveRequestDTO naveResponseDTO) throws BadRequestException {
@@ -72,7 +73,7 @@ public class NaveController {
     @Operation(summary = "Endpoint responsável por buscar uma nave através do identificador")
     @ApiResponses({
             @ApiResponse(responseCode = "200", description = "Nave encontrada com sucesso"),
-            @ApiResponse(responseCode = "400", description = "Nave não encontrada")
+            @ApiResponse(responseCode = "404", description = "Nave não encontrada")
     })
     @GetMapping("/{idNave}")
     public ResponseEntity<?> buscaNavePeloId(@PathVariable Long idNave) throws BadRequestException {

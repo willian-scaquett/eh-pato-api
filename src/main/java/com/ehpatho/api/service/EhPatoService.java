@@ -6,12 +6,10 @@ import com.ehpatho.api.dto.EhPatoResponseDTO;
 import com.ehpatho.api.enumerated.LocalizacaoSuspeito;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.http.HttpEntity;
-import org.springframework.http.HttpHeaders;
-import org.springframework.http.HttpMethod;
-import org.springframework.http.ResponseEntity;
+import org.springframework.http.*;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
+import org.springframework.web.server.ResponseStatusException;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -85,9 +83,27 @@ public class EhPatoService {
         HttpHeaders headers = new HttpHeaders(); //Cria os headers da requisição
         headers.set("Content-Type", "application/json");
 
-        //Cria o body da requisição convertendo os campos para os nomes e formatos esperados pela API Python
+        HttpEntity<Map<String, Object>> requestEntity = getRequestEntity(ehPatoResquestDTO, headers);
+
+        //Dispara requisição
+        log.info("Enviando requisição para verificar se é pato...");
+        ResponseEntity<APIEhPatoIAResponseDTO> response;
+        try {
+            response = restTemplate.exchange(apiIaUrl, HttpMethod.PUT, requestEntity, APIEhPatoIAResponseDTO.class);
+            log.info("Resposta recebida da API IA: {}", response.getBody());
+        } catch (Exception e) {
+            log.error("Falha de comunicação com a API da IA", e);
+            throw new ResponseStatusException(HttpStatus.SERVICE_UNAVAILABLE, "Falha de comunicação com a API da IA");
+        }
+
+        //Retorna o body recebido
+        return response.getBody();
+    }
+
+    private static HttpEntity<Map<String, Object>> getRequestEntity(EhPatoRequestDTO ehPatoResquestDTO, HttpHeaders headers) {
         Map<String, Object> body = new HashMap<>();
 
+        //Cria o body da requisição convertendo os campos para os nomes e formatos esperados pela API Python
         body.put("esverdeamento", ehPatoResquestDTO.getEsverdeamento());
         body.put("tamanho_bico", ehPatoResquestDTO.getTamanhoBico());
         body.put("grau_sotaque", ehPatoResquestDTO.getGrauSotaque());
@@ -98,14 +114,6 @@ public class EhPatoService {
         body.put("cursa_ti", ehPatoResquestDTO.isCursaTI() ? "Sim" : "Não");
         body.put("time_do_coracao", ehPatoResquestDTO.getTimeDoCoracao());
 
-        HttpEntity<String> requestEntity = new HttpEntity(body, headers);
-
-        //Dispara requisição
-        log.info("Enviando requisição para verificar se é pato...");
-        ResponseEntity<APIEhPatoIAResponseDTO> response = restTemplate.exchange(apiIaUrl, HttpMethod.PUT, requestEntity, APIEhPatoIAResponseDTO.class);
-        log.info("Resposta recebida da API IA: {}", response.getBody());
-
-        //Retorna o body recebido
-        return response.getBody();
+        return new HttpEntity<>(body, headers);
     }
 }

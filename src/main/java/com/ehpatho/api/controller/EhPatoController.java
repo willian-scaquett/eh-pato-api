@@ -31,7 +31,7 @@ public class EhPatoController {
             " quando for o caso")
     @ApiResponses({
             @ApiResponse(responseCode = "200", description = "Classificação e escolha de armas e abordagens feitas com sucesso"),
-            @ApiResponse(responseCode = "500", description = "Falha de comunicação com a API da IA")
+            @ApiResponse(responseCode = "503", description = "Falha de comunicação com a API da IA")
     })
     @PostMapping(value = "/identificarECriarEstrategia")
     public ResponseEntity<?> identificarECriarEstrategia(@RequestBody EhPatoRequestDTO ehPatoRequestDTO) {
