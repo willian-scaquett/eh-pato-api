@@ -1,7 +1,6 @@
 package com.ehpatho.api.dto;
 
 import com.ehpatho.api.enumerated.*;
-import com.patos.alens.demo.enumerated.*;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
 

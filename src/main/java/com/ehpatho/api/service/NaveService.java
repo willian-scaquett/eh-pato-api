@@ -6,7 +6,6 @@ import com.ehpatho.api.dto.NaveResponseDTO;
 import com.ehpatho.api.dto.ValoresSelectDTO;
 import com.ehpatho.api.entity.Nave;
 import com.ehpatho.api.enumerated.*;
-import com.patos.alens.demo.enumerated.*;
 import com.ehpatho.api.repository.NaveRepository;
 import org.apache.coyote.BadRequestException;
 import org.springframework.stereotype.Service;

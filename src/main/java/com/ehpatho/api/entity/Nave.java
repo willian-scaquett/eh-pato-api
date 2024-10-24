@@ -2,7 +2,6 @@ package com.ehpatho.api.entity;
 
 import com.ehpatho.api.dto.NaveRequestDTO;
 import com.ehpatho.api.enumerated.*;
-import com.patos.alens.demo.enumerated.*;
 import jakarta.persistence.*;
 import lombok.Data;
 import lombok.NoArgsConstructor;

@@ -3,7 +3,6 @@ package com.ehpatho.api;
 import com.ehpatho.api.dto.NaveRequestDTO;
 import com.ehpatho.api.dto.NaveResponseDTO;
 import com.ehpatho.api.enumerated.*;
-import com.patos.alens.demo.enumerated.*;
 import com.ehpatho.api.repository.NaveRepository;
 import com.ehpatho.api.service.NaveService;
 import jakarta.transaction.Transactional;
