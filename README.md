@@ -1,4 +1,4 @@
-# Projeto Patos Alien API
+# EH PATO - API
 
 ## Ferramentas utilizadas
 - Java 17
