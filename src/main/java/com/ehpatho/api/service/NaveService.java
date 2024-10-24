@@ -44,10 +44,12 @@ public class NaveService {
     public NaveResponseDTO criarNave(NaveRequestDTO naveRequestDTO) throws ResponseStatusException {
         log.info("Tentando criar nova nave com nome: {}", naveRequestDTO.getNome());
 
-        //Se o nome já existe, retorna um bad request
-        if (naveRepository.existsByNome(naveRequestDTO.getNome())) {
-            log.error("Nome de nave já existente");
-            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Nome de nave já existente");
+        //Se o nome já existe ou é vazio, retorna um bad request
+        if (naveRequestDTO.getNome() == null
+                || naveRequestDTO.getNome().isEmpty()
+                || naveRepository.existsByNome(naveRequestDTO.getNome())) {
+            log.error("Nome de nave vazio ou já existente");
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Nome de nave vazio ou já existente");
         }
 
         //Define os atributos categoria e periculosidade da nave criada conforme o DTO
@@ -57,7 +59,7 @@ public class NaveService {
         NaveResponseDTO response = new NaveResponseDTO(naveRepository.save(nave));
 
         log.info("Nave criada com sucesso: {}", response);
-        return new NaveResponseDTO(naveRepository.save(nave));
+        return response;
     }
 
     public void apagarNave(Long idNave) throws ResponseStatusException {
@@ -65,7 +67,7 @@ public class NaveService {
         //Busca a nave a ser apagada
         Nave nave = buscarNavePeloId(idNave);
         //Apaga a nave
-        naveRepository.deleteById(idNave);
+        naveRepository.delete(nave);
         log.info("Nave com ID {} apagada com sucesso", idNave);
     }
 
@@ -75,9 +77,11 @@ public class NaveService {
         Nave nave = buscarNavePeloId(idNave);
 
         //Caso o nome de nave já exista, retorna um bad request
-        if (naveRepository.existsByNomeAndIdNot(naveRequestDTO.getNome(), idNave)) {
-            log.error("O novo nome da nave já existe");
-            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "O novo nome da nave já existe");
+        if (naveRequestDTO.getNome() == null
+                || naveRequestDTO.getNome().isEmpty()
+                || naveRepository.existsByNomeAndIdNot(naveRequestDTO.getNome(), idNave)) {
+            log.error("O novo nome da nave é vazio ou já existe");
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "O novo nome da nave é vazio ou já existe");
         }
 
         //Define novos dados da nave

@@ -98,7 +98,7 @@ public class Nave {
     }
 
     public void editarNave(NaveRequestDTO dto) {
-        if (dto.getNome() != null) {
+        if (dto.getNome() != null && !dto.getNome().isEmpty()) {
             this.nome = dto.getNome();
         }
         if (dto.getCor() != null) {

@@ -41,7 +41,7 @@ public class NaveController {
             "e classifcacao e retornar um DTO com esses campos já definidos")
     @ApiResponses({
             @ApiResponse(responseCode = "200", description = "Nave criada com sucesso"),
-            @ApiResponse(responseCode = "400", description = "Nome de nave já existente")
+            @ApiResponse(responseCode = "400", description = "Nome de nave vazio ou já existente")
     })
     @PostMapping("/criar")
     public ResponseEntity<?> criar(@RequestBody NaveRequestDTO naveResponseDTO) throws BadRequestException {
@@ -62,7 +62,7 @@ public class NaveController {
     @Operation(summary = "Endpoint responsável por atualizar uma nave através do ID informado e dos dados passados no body.")
     @ApiResponses({
             @ApiResponse(responseCode = "200", description = "Nave atualizada com sucesso"),
-            @ApiResponse(responseCode = "400", description = "Nome de nave já existente"),
+            @ApiResponse(responseCode = "400", description = "Nome de nave vazio ou já existente"),
             @ApiResponse(responseCode = "404", description = "Nave não encontrada")
     })
     @PutMapping("/editar/{idNave}")
