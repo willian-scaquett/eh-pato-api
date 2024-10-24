@@ -3,10 +3,7 @@ package com.patos.alens.demo;
 import com.patos.alens.demo.dto.NaveRequestDTO;
 import com.patos.alens.demo.dto.NaveResponseDTO;
 import com.patos.alens.demo.entity.Nave;
-import com.patos.alens.demo.enumerated.Cor;
-import com.patos.alens.demo.enumerated.GrauAvaria;
-import com.patos.alens.demo.enumerated.PotencialTecnologico;
-import com.patos.alens.demo.enumerated.TipoCombustivel;
+import com.patos.alens.demo.enumerated.*;
 import com.patos.alens.demo.repository.NaveRepository;
 import com.patos.alens.demo.service.NaveService;
 import jakarta.transaction.Transactional;
@@ -61,19 +58,20 @@ public class NaveServiceTest {
         NaveRequestDTO naveRequestDTO = new NaveRequestDTO();
         naveRequestDTO.setNome("Teste");
         naveRequestDTO.setCor(Cor.AZUL);
-        naveRequestDTO.setTotalTripulanteBem(10L);
+        naveRequestDTO.setTotalTripulanteBem(10);
         naveRequestDTO.setGrauAvaria(GrauAvaria.SEM_AVARIAS);
         naveRequestDTO.setPotencialTecnologico(PotencialTecnologico.AVANCADA);
         naveRequestDTO.setTipoCombustivel(TipoCombustivel.ESPRESSO_QUANTICO);
-        naveRequestDTO.setTotalTripulanteFerido(10L);
-        naveRequestDTO.setTotalTripulanteFoiComDeus(40L);
-        naveRequestDTO.setCriadoEm(LocalDateTime.of(2024, 10, 22, 22, 0, 0));
-        naveRequestDTO.setAtualizadoEm(LocalDateTime.of(2024, 10, 22, 22, 0, 0));
+        naveRequestDTO.setTotalTripulanteFerido(10);
+        naveRequestDTO.setTotalTripulanteFoiComDeus(40);
+        naveRequestDTO.setLocalQueda(LocalQueda.AFRICA);
+        naveRequestDTO.setArmamento(Armamento.MISSEL);
+        naveRequestDTO.setTamanho(Tamanho.COLOSSAL);
 
-        Nave nave = this.naveService.criaNave(naveRequestDTO);
+        NaveResponseDTO naveResponseDTO = naveService.criarNave(naveRequestDTO);
 
-        Assertions.assertEquals("Teste", nave.getNome());
-        Assertions.assertEquals(Cor.AZUL, nave.getCor());
+        Assertions.assertEquals("Teste", naveResponseDTO.getNome());
+        Assertions.assertEquals(Cor.AZUL.getNome(), naveResponseDTO.getCor());
     }
 
     @Test
@@ -83,17 +81,15 @@ public class NaveServiceTest {
         NaveRequestDTO naveRequestDTO = new NaveRequestDTO();
         naveRequestDTO.setNome("Nave Fênix");
         naveRequestDTO.setCor(Cor.AZUL);
-        naveRequestDTO.setTotalTripulanteBem(10L);
+        naveRequestDTO.setTotalTripulanteBem(10);
         naveRequestDTO.setGrauAvaria(GrauAvaria.SEM_AVARIAS);
         naveRequestDTO.setPotencialTecnologico(PotencialTecnologico.AVANCADA);
         naveRequestDTO.setTipoCombustivel(TipoCombustivel.ESPRESSO_QUANTICO);
-        naveRequestDTO.setTotalTripulanteFerido(10L);
-        naveRequestDTO.setTotalTripulanteFoiComDeus(40L);
-        naveRequestDTO.setCriadoEm(LocalDateTime.of(2024, 10, 22, 22, 0, 0));
-        naveRequestDTO.setAtualizadoEm(LocalDateTime.of(2024, 10, 22, 22, 0, 0));
+        naveRequestDTO.setTotalTripulanteFerido(10);
+        naveRequestDTO.setTotalTripulanteFoiComDeus(40);
 
         assertThrows(BadRequestException.class, () -> {
-            naveService.criaNave(naveRequestDTO);
+            naveService.criarNave(naveRequestDTO);
         });
     }
 
