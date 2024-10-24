@@ -15,6 +15,7 @@ public class NaveClassificador {
      * as características informadas.
      */
     public Nave definirCategoriaEPericulosidade(Nave nave) {
+        log.info("Definindo categoria e periculosidade para a nave: {}", nave);
         float potencialArmas = 0;
         float potencialCombustivel = 0;
         float perigo = 0;
@@ -75,6 +76,7 @@ public class NaveClassificador {
         nave.setPericulosidade(classificarPerigo(perigo));
         nave.setClassificacao(classificarNave(potencialArmas, potencialCombustivel, nave.getTotalTripulanteBem(), nave.getTotalTripulanteFerido()));
 
+        log.debug("Periculosidade definida: {}, Classificação definida: {}", nave.getPericulosidade(), nave.getClassificacao());
         return nave;
     }
 

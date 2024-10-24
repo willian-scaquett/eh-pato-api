@@ -76,8 +76,8 @@ public class NaveController {
             @ApiResponse(responseCode = "404", description = "Nave não encontrada")
     })
     @GetMapping("/{idNave}")
-    public ResponseEntity<?> buscaNavePeloId(@PathVariable Long idNave) throws BadRequestException {
-        return ResponseEntity.ok(naveService.buscaNavePeloId(idNave));
+    public ResponseEntity<?> buscarNavePeloId(@PathVariable Long idNave) throws BadRequestException {
+        return ResponseEntity.ok(naveService.buscarNavePeloId(idNave));
     }
 
     @Operation(summary = "Endpoint responsável informar os valores dos selects da tela de cadastro e edição de nave.")
