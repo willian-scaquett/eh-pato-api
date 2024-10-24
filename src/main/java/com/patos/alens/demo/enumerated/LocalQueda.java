@@ -4,7 +4,7 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 
 /**
- * A classe LocalQueda é responsável por disponibilizar onde a máquina caiu
+ * O enumerador LocalQueda é responsável por disponibilizar onde a máquina caiu
  *
  * @author Kaique Queiros kaique_q@outlook.com
  */

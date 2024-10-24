@@ -8,12 +8,16 @@ import com.patos.alens.demo.entity.Nave;
 import com.patos.alens.demo.enumerated.*;
 import com.patos.alens.demo.repository.NaveRepository;
 import org.apache.coyote.BadRequestException;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * A classe NaveService é responsável por disponibilizar a regra de negócio da CRUD de nave
+ *
+ * @author Kaique Queiros kaique_q@outlook.com
+ */
 @Service
 public class NaveService {
 
@@ -54,65 +58,32 @@ public class NaveService {
         naveRepository.deleteById(id);
     }
 
-    public ResponseEntity<?> atualizaNave(Long idNave, NaveRequestDTO naveRequestDTO) throws BadRequestException {
-
+    public NaveResponseDTO editarNave(Long idNave, NaveRequestDTO naveRequestDTO) throws BadRequestException {
+        //Busca a nave a ser editada
         Nave nave = this.naveRepository.findById(idNave).orElse(null);
 
-        if (nave == null) {
-            return ResponseEntity.notFound().build();
-        }
-
-        boolean naveExiste = naveRepository.existsByNomeAndIdNot(naveRequestDTO.getNome(), idNave);
-
-        if (naveExiste) {
+        //Caso a nave não existe ou o novo nome da nave já existir, retorna um bad request
+        if (nave == null && naveRepository.existsByNomeAndIdNot(naveRequestDTO.getNome(), idNave)) {
             throw new BadRequestException();
         }
-        nave.atualizaNave(naveRequestDTO);
 
-        this.naveRepository.save(nave);
-        return ResponseEntity.ok(nave);
+        //Define novos dados da nave
+        nave.editarNave(naveRequestDTO);
+        //Reclassifica a nave com os novos dados
+        nave = definirCategoriaEPericulosidade(nave);
+
+        //Salva a nave editada no banco e a retorna em um DTO
+        return new NaveResponseDTO(naveRepository.save(nave));
     }
 
     public Nave buscaNavePeloId(Long id) throws BadRequestException {
+        //Busca nave pelo ID
         Nave nave = this.naveRepository.findById(id).orElse(null);
+        //Caso ela não exista, retorna um bad request
         if (nave == null) {
             throw new BadRequestException();
         }
         return nave;
-    }
-
-    public ListsValoresSelectDTO getValoresSelectsCadastro() {
-        ListsValoresSelectDTO response = new ListsValoresSelectDTO();
-
-        for (Cor cor : Cor.values()) {
-            response.getCores().add(new ValoresSelectDTO(cor.name(), cor.getNome()));
-        }
-
-        for (LocalQueda localQueda : LocalQueda.values()) {
-            response.getLocais().add(new ValoresSelectDTO(localQueda.name(), localQueda.getNome()));
-        }
-
-        for (TipoCombustivel tipoCombustivel : TipoCombustivel.values()) {
-            response.getCombustiveis().add(new ValoresSelectDTO(tipoCombustivel.name(), tipoCombustivel.getNome()));
-        }
-
-        for (GrauAvaria grauAvaria : GrauAvaria.values()) {
-            response.getGraus().add(new ValoresSelectDTO(grauAvaria.name(), grauAvaria.getNome()));
-        }
-
-        for (PotencialTecnologico potencialTecnologico : PotencialTecnologico.values()) {
-            response.getPotenciais().add(new ValoresSelectDTO(potencialTecnologico.name(), potencialTecnologico.getNome()));
-        }
-
-        for (Armamento armamento : Armamento.values()) {
-            response.getArmamentos().add(new ValoresSelectDTO(armamento.name(), armamento.getNome()));
-        }
-
-        for (Tamanho tamanho : Tamanho.values()) {
-            response.getTamanhos().add(new ValoresSelectDTO(tamanho.name(), tamanho.getNome()));
-        }
-
-        return response;
     }
 
     /**
@@ -227,5 +198,43 @@ public class NaveService {
         }
 
         return Classificacao.SUCATA_ESPACIAL;
+    }
+
+    /**
+     * Adiciona na lista de cada campo os valores dos enums a serem usados nos selects do front-end
+     * Dessa forma, evitam-se informações duplicadas e facilita a manutenção
+     */
+    public ListsValoresSelectDTO getValoresSelectsCadastro() {
+        ListsValoresSelectDTO response = new ListsValoresSelectDTO();
+
+        for (Cor cor : Cor.values()) {
+            response.getCores().add(new ValoresSelectDTO(cor.name(), cor.getNome()));
+        }
+
+        for (LocalQueda localQueda : LocalQueda.values()) {
+            response.getLocais().add(new ValoresSelectDTO(localQueda.name(), localQueda.getNome()));
+        }
+
+        for (TipoCombustivel tipoCombustivel : TipoCombustivel.values()) {
+            response.getCombustiveis().add(new ValoresSelectDTO(tipoCombustivel.name(), tipoCombustivel.getNome()));
+        }
+
+        for (GrauAvaria grauAvaria : GrauAvaria.values()) {
+            response.getGraus().add(new ValoresSelectDTO(grauAvaria.name(), grauAvaria.getNome()));
+        }
+
+        for (PotencialTecnologico potencialTecnologico : PotencialTecnologico.values()) {
+            response.getPotenciais().add(new ValoresSelectDTO(potencialTecnologico.name(), potencialTecnologico.getNome()));
+        }
+
+        for (Armamento armamento : Armamento.values()) {
+            response.getArmamentos().add(new ValoresSelectDTO(armamento.name(), armamento.getNome()));
+        }
+
+        for (Tamanho tamanho : Tamanho.values()) {
+            response.getTamanhos().add(new ValoresSelectDTO(tamanho.name(), tamanho.getNome()));
+        }
+
+        return response;
     }
 }

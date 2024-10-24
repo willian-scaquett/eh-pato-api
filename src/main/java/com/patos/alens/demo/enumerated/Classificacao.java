@@ -4,8 +4,9 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 
 /**
- * O enumerador Periculosidade é responsável por representar o grau de periculosidade de uma nave ao se aproximar dela
- * @author Kaique Queiros kaique_q@outlook.com
+ * O enumerador Classificacao é responsável por disponibilizar as classificações que uma nave pode receber
+ *
+ * @author Willian Scaquett willian.scaquett@gmail.com
  */
 @Getter
 @AllArgsConstructor

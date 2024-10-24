@@ -4,7 +4,7 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 
 /**
- * O enumerador PotencialTecnologico é responsável por representar qual o potencial tecnologico de uma nave
+ * O enumerador PotencialTecnologico é responsável por representar qual o potencial tecnológico de uma nave
  *
  * @author Kaique Queiros kaique_q@outlook.com
  */

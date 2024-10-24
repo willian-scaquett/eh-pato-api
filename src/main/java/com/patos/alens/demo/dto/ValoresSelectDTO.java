@@ -1,14 +1,16 @@
 package com.patos.alens.demo.dto;
 
-import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import lombok.AllArgsConstructor;
 import lombok.Data;
-import lombok.NoArgsConstructor;
 
+/**
+ * A classe ValoresSelectDTO é responsável por disponibilizar o json com um valor de select
+ * da tela de cadastro e edição de Nave
+ *
+ * @author Willian Scaquett willian.scaquett@gmail.com
+ */
 @Data
-@NoArgsConstructor
 @AllArgsConstructor
-@JsonSerialize
 public class ValoresSelectDTO {
     String value;
     String nome;

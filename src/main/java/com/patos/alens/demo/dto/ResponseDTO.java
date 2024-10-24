@@ -1,10 +1,13 @@
 package com.patos.alens.demo.dto;
 
-import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import lombok.AllArgsConstructor;
 import lombok.Data;
-import lombok.NoArgsConstructor;
 
+/**
+ * A classe ResponseDTO é responsável por disponibilizar o json mensagens de retorno
+ *
+ * @author Willian Scaquett willian.scaquett@gmail.com
+ */
 @Data
 @AllArgsConstructor
 public class ResponseDTO {

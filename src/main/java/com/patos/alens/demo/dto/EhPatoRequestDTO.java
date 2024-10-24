@@ -1,10 +1,14 @@
 package com.patos.alens.demo.dto;
 
-import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import com.patos.alens.demo.enumerated.LocalizacaoSuspeito;
 import lombok.Data;
 
-@JsonSerialize
+/**
+ * A classe EhPatoRequestDTO é responsável por representar o que corpo da requisição feita à api para
+ * identificar o elemento suspeito e escolher a arma e a abordagem recomendada
+ *
+ * @author Willian Scaquett willian.scaquett@gmail.com
+ */
 @Data
 public class EhPatoRequestDTO {
 

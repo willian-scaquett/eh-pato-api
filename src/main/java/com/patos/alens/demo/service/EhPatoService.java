@@ -14,6 +14,12 @@ import org.springframework.web.client.RestTemplate;
 import java.util.HashMap;
 import java.util.Map;
 
+/**
+ * A classe EhPatoService é responsável por disponibilizar a regra de negócio da verificação de elemento suspeito
+ * e elaboração de arma e estratégia
+ *
+ * @author Willian Scaquett willian.scaquett@gmail.com
+ */
 @Service
 public class EhPatoService {
 

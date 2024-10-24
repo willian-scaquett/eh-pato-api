@@ -1,12 +1,15 @@
 package com.patos.alens.demo.dto;
 
-import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import lombok.Data;
 
-@JsonSerialize
+/**
+ * A classe APIEhPatoResponseDTO é responsável por disponibilizar o json com a classificação do elemento suspeito
+ * feita pela API da IA
+ *
+ * @author Willian Scaquett willian.scaquett@gmail.com
+ */
 @Data
 public class APIEhPatoResponseDTO {
 
     boolean ehPato;
-
 }

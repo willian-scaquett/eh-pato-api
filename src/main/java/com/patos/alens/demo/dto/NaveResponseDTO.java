@@ -1,21 +1,14 @@
 package com.patos.alens.demo.dto;
 
-import com.fasterxml.jackson.databind.annotation.JsonSerialize;
-
 import com.patos.alens.demo.entity.Nave;
-import lombok.AllArgsConstructor;
 import lombok.Data;
-import lombok.NoArgsConstructor;
 
 /**
- * A classe {@link NaveResponseDTO} é responsável por disponibilizar a json de resposta do endpoint.
+ * A classe NaveResponseDTO é responsável por disponibilizar o json da entidade Nave na resposta dos endpoints
  *
  * @author Kaique Queiros kaique_q@outlook.com
  */
 @Data
-@NoArgsConstructor
-@AllArgsConstructor
-@JsonSerialize
 public class NaveResponseDTO {
     private Long id;
     private String nome;
@@ -28,9 +21,6 @@ public class NaveResponseDTO {
     private String potencialTecnologico;
     private String periculosidade;
     private String classificacao;
-    private int totalTripulanteBem;
-    private int totalTripulanteFerido;
-    private int totalTripulanteFoiComDeus;
     private String tripulantes;
 
     public NaveResponseDTO(Nave nave) {
@@ -41,13 +31,10 @@ public class NaveResponseDTO {
         this.localQueda = nave.getLocalQueda().getNome();
         this.armamento = nave.getArmamento().getNome();
         this.tipoCombustivel = nave.getTipoCombustivel().getNome();
+        this.tripulantes = nave.getTotalTripulanteBem() + " / " + nave.getTotalTripulanteFerido() + " / " + nave.getTotalTripulanteFoiComDeus();
         this.grauAvaria = nave.getGrauAvaria().getNome();
         this.potencialTecnologico = nave.getPotencialTecnologico().getNome();
         this.periculosidade = nave.getPericulosidade().getNome();
         this.classificacao = nave.getClassificacao().getNome();
-        this.totalTripulanteBem = nave.getTotalTripulanteBem();
-        this.totalTripulanteFerido = nave.getTotalTripulanteFerido();
-        this.totalTripulanteFoiComDeus = nave.getTotalTripulanteFoiComDeus();
-        this.tripulantes = totalTripulanteBem + " / " + totalTripulanteFerido + " / " + totalTripulanteFoiComDeus;
     }
 }

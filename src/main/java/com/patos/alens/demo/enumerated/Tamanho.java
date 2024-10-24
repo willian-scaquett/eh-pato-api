@@ -4,7 +4,7 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 
 /**
- * A classe Tamanho é responsável por representar o tamanho de uma nave
+ * O enumerador Tamanho é responsável por representar o tamanho de uma nave
  *
  * @author Kaique Queiros kaique_q@outlook.com
  */

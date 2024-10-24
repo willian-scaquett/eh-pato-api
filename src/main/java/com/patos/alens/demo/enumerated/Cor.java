@@ -4,7 +4,7 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 
 /**
- * O enumerador CorNave é responsável por disponibilizar as possibildiades de cores para as naves
+ * O enumerador Cor é responsável por disponibilizar as possibilidades de cores para as naves
  *
  * @author Kaique Queiros kaique_q@outlook.com
  */

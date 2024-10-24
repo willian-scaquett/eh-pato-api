@@ -4,7 +4,7 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 
 /**
- * O enumerador GrauAvaria é responsável por disponibilizar qual é o grau de avaria de uma nave
+ * O enumerador GrauAvaria é responsável por disponibilizar os graus de avaria de uma nave pode ter
  *
  * @author Kaique Queiros kaique_q@outlook.com
  */

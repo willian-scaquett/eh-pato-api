@@ -1,13 +1,17 @@
 package com.patos.alens.demo.dto;
 
 import lombok.Data;
-import lombok.NoArgsConstructor;
 
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * A classe ListsValoresSelectDTO é responsável por disponibilizar o json com os valores dos selects
+ * da tela de cadastro e edição de Nave
+ *
+ * @author Willian Scaquett willian.scaquett@gmail.com
+ */
 @Data
-@NoArgsConstructor
 public class ListsValoresSelectDTO {
     List<ValoresSelectDTO> cores = new ArrayList<>();
     List<ValoresSelectDTO> locais = new ArrayList<>();

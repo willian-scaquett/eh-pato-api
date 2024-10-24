@@ -82,7 +82,7 @@ public class Nave {
     @Column
     private LocalDateTime atualizadoEm;
 
-    public Nave (NaveRequestDTO naveRequestDTO) {
+    public Nave(NaveRequestDTO naveRequestDTO) {
         this.nome = naveRequestDTO.getNome();
         this.cor = naveRequestDTO.getCor();
         this.tamanho = naveRequestDTO.getTamanho();
@@ -97,27 +97,40 @@ public class Nave {
         this.criadoEm = LocalDateTime.now();
     }
 
-    public void atualizaNave(NaveRequestDTO dto) {
+    public void editarNave(NaveRequestDTO dto) {
         if (dto.getNome() != null) {
-            this.setNome(dto.getNome());
+            this.nome = dto.getNome();
         }
         if (dto.getCor() != null) {
-            this.setCor(dto.getCor());
+            this.cor = dto.getCor();
+        }
+        if (dto.getTamanho() != null) {
+            this.tamanho = dto.getTamanho();
         }
         if (dto.getLocalQueda() != null) {
-            this.setLocalQueda(dto.getLocalQueda());
+            this.localQueda = dto.getLocalQueda();
         }
         if (dto.getArmamento() != null) {
-            this.setArmamento(dto.getArmamento());
+            this.armamento = dto.getArmamento();
         }
         if (dto.getTipoCombustivel() != null) {
-            this.setTipoCombustivel(dto.getTipoCombustivel());
+            this.tipoCombustivel = dto.getTipoCombustivel();
+        }
+        if (dto.getTotalTripulanteBem() >= 0) {
+            this.totalTripulanteBem = dto.getTotalTripulanteBem();
+        }
+        if (dto.getTotalTripulanteFerido() >= 0) {
+            this.totalTripulanteFerido = dto.getTotalTripulanteFerido();
+        }
+        if (dto.getTotalTripulanteFoiComDeus() >= 0) {
+            this.totalTripulanteFoiComDeus = dto.getTotalTripulanteFoiComDeus();
         }
         if (dto.getGrauAvaria() != null) {
-            this.setGrauAvaria(dto.getGrauAvaria());
+            this.grauAvaria = dto.getGrauAvaria();
         }
         if (dto.getPotencialTecnologico() != null) {
-            this.setPotencialTecnologico(dto.getPotencialTecnologico());
+            this.potencialTecnologico = dto.getPotencialTecnologico();
         }
+        this.atualizadoEm = LocalDateTime.now();
     }
 }

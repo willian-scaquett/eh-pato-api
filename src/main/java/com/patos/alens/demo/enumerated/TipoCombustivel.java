@@ -4,7 +4,7 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 
 /**
- * A classe TipoCombustivel é responsável por representar o tipo de combustivel de uma nave
+ * O enumerador TipoCombustivel é responsável por representar o tipo de combustível de uma nave
  *
  * @author Kaique Queiros kaique_q@outlook.com
  */

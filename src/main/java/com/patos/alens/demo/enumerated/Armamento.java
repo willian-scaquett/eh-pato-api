@@ -4,7 +4,7 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 
 /**
- * A classe Armamento é responsável por disponibilizar o poder de armamento que uma nave tem
+ * A classe Armamento é responsável por disponibilizar as armas que uma nave tem
  *
  * @author Kaique Queiros kaique_q@outloom.com
  */

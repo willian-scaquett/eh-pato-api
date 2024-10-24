@@ -12,7 +12,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 /**
- * A classe NaveController é reponsável por disponibilizar os recursos disponiveis para CRUD de nave
+ * A classe NaveController é responsável por disponibilizar os endpoints para CRUD de nave
  *
  * @author Kaique Queiros kaique_q@outlook.com
  */
@@ -51,7 +51,7 @@ public class NaveController {
     @Operation(summary = "Endpoint responsável por apagar uma nave através do ID informado.")
     @ApiResponses({
             @ApiResponse(responseCode = "200", description = "Nave excluída com sucesso"),
-            @ApiResponse(responseCode = "404", description = "Nave não encontrada")
+            @ApiResponse(responseCode = "400", description = "Nave não encontrada")
     })
     @DeleteMapping("/apagar/{idNave}")
     public ResponseEntity<?> apagarNave(@PathVariable Long idNave) throws BadRequestException {
@@ -59,38 +59,30 @@ public class NaveController {
         return ResponseEntity.ok(new ResponseDTO("Sucesso"));
     }
 
-    /**
-     * Atualiza uma nave atráves de um {@link NaveResponseDTO} e seu identificador.
-     *
-     * @param idNave          identificador da nave
-     * @param naveResponseDTO atualização da nave
-     * @return nave atualizada
-     */
+    @Operation(summary = "Endpoint responsável por atualizar uma nave através do ID informado e dos dados passados no body.")
     @ApiResponses({
-            @ApiResponse(responseCode = "404", description = "Nave não encontrada"),
-            @ApiResponse(responseCode = "200", description = "Nave atualizada com sucesso")
+            @ApiResponse(responseCode = "200", description = "Nave atualizada com sucesso"),
+            @ApiResponse(responseCode = "400", description = "Nave não encontrada"),
     })
     @PutMapping("/editar/{idNave}")
-    public ResponseEntity<?> atualizaNave(@PathVariable Long idNave, @RequestBody NaveRequestDTO naveResponseDTO) throws BadRequestException {
-        return this.naveService.atualizaNave(idNave, naveResponseDTO);
+    public ResponseEntity<?> editarNave(@PathVariable Long idNave, @RequestBody NaveRequestDTO naveResponseDTO) throws BadRequestException {
+        return ResponseEntity.ok(naveService.editarNave(idNave, naveResponseDTO));
     }
 
-    /**
-     * Busca nave pelo identificador
-     *
-     * @param idNave identificador da nave
-     * @return nave encontrada
-     */
-    @GetMapping("/{idNave}")
-    @Operation(summary = "Endpoint responsável por buscar uma nave atráves do identificador")
+    @Operation(summary = "Endpoint responsável por buscar uma nave através do identificador")
     @ApiResponses({
             @ApiResponse(responseCode = "200", description = "Nave encontrada com sucesso"),
-            @ApiResponse(responseCode = "404", description = "Nave não encontrada")
+            @ApiResponse(responseCode = "400", description = "Nave não encontrada")
     })
+    @GetMapping("/{idNave}")
     public ResponseEntity<?> buscaNavePeloId(@PathVariable Long idNave) throws BadRequestException {
         return ResponseEntity.ok(naveService.buscaNavePeloId(idNave));
     }
 
+    @Operation(summary = "Endpoint responsável informar os valores dos selects da tela de cadastro e edição de nave.")
+    @ApiResponses({
+            @ApiResponse(responseCode = "200", description = "Valores dos selects retornados com sucesso")
+    })
     @GetMapping("/valoresSelectsCadastro")
     public ResponseEntity<?> getValoresSelectsCadastro() {
         return ResponseEntity.ok(naveService.getValoresSelectsCadastro());
