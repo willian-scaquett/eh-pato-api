@@ -78,6 +78,7 @@ public class NaveServiceTest {
             naveService.criarNave(naveRequestDTO);
         });
     }
+
     @Test
     public void testaCriarNovaNave_NomeVazio() {
         NaveRequestDTO naveRequestDTO = getRequestDTO();

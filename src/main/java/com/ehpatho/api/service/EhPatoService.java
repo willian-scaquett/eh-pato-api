@@ -89,7 +89,7 @@ public class EhPatoService {
         log.info("Enviando requisição para verificar se é pato...");
         ResponseEntity<APIEhPatoIAResponseDTO> response;
         try {
-            response = restTemplate.exchange(apiIaUrl, HttpMethod.PUT, requestEntity, APIEhPatoIAResponseDTO.class);
+            response = restTemplate.exchange(apiIaUrl, HttpMethod.POST, requestEntity, APIEhPatoIAResponseDTO.class);
             log.info("Resposta recebida da API IA: {}", response.getBody());
         } catch (Exception e) {
             log.error("Falha de comunicação com a API da IA", e);

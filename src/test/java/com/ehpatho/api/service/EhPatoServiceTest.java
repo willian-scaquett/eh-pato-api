@@ -37,7 +37,7 @@ class EhPatoServiceTest {
         APIEhPatoIAResponseDTO apiResponse = new APIEhPatoIAResponseDTO();
         apiResponse.setEhPato(true);
 
-        when(restTemplate.exchange(anyString(), eq(HttpMethod.PUT), any(HttpEntity.class), eq(APIEhPatoIAResponseDTO.class)))
+        when(restTemplate.exchange(anyString(), eq(HttpMethod.POST), any(HttpEntity.class), eq(APIEhPatoIAResponseDTO.class)))
                 .thenReturn(ResponseEntity.ok(apiResponse));
 
         EhPatoRequestDTO request = new EhPatoRequestDTO();
@@ -63,7 +63,7 @@ class EhPatoServiceTest {
         APIEhPatoIAResponseDTO apiResponse = new APIEhPatoIAResponseDTO();
         apiResponse.setEhPato(false);
 
-        when(restTemplate.exchange(anyString(), eq(HttpMethod.PUT), any(HttpEntity.class), eq(APIEhPatoIAResponseDTO.class)))
+        when(restTemplate.exchange(anyString(), eq(HttpMethod.POST), any(HttpEntity.class), eq(APIEhPatoIAResponseDTO.class)))
                 .thenReturn(ResponseEntity.ok(apiResponse));
 
         EhPatoRequestDTO request = getEhPatoRequestDTO();
@@ -83,7 +83,7 @@ class EhPatoServiceTest {
         APIEhPatoIAResponseDTO apiResponse = new APIEhPatoIAResponseDTO();
         apiResponse.setEhPato(false);
 
-        when(restTemplate.exchange(anyString(), eq(HttpMethod.PUT), any(HttpEntity.class), eq(APIEhPatoIAResponseDTO.class)))
+        when(restTemplate.exchange(anyString(), eq(HttpMethod.POST), any(HttpEntity.class), eq(APIEhPatoIAResponseDTO.class)))
                 .thenReturn(ResponseEntity.ok(apiResponse));
 
         EhPatoRequestDTO request = getEhPatoRequestDTO();
@@ -103,7 +103,7 @@ class EhPatoServiceTest {
         APIEhPatoIAResponseDTO apiResponse = new APIEhPatoIAResponseDTO();
         apiResponse.setEhPato(false);
 
-        when(restTemplate.exchange(anyString(), eq(HttpMethod.PUT), any(HttpEntity.class), eq(APIEhPatoIAResponseDTO.class)))
+        when(restTemplate.exchange(anyString(), eq(HttpMethod.POST), any(HttpEntity.class), eq(APIEhPatoIAResponseDTO.class)))
                 .thenReturn(ResponseEntity.ok(apiResponse));
 
         EhPatoRequestDTO request = getEhPatoRequestDTO();
@@ -123,7 +123,7 @@ class EhPatoServiceTest {
         APIEhPatoIAResponseDTO apiResponse = new APIEhPatoIAResponseDTO();
         apiResponse.setEhPato(false);
 
-        when(restTemplate.exchange(anyString(), eq(HttpMethod.PUT), any(HttpEntity.class), eq(APIEhPatoIAResponseDTO.class)))
+        when(restTemplate.exchange(anyString(), eq(HttpMethod.POST), any(HttpEntity.class), eq(APIEhPatoIAResponseDTO.class)))
                 .thenReturn(ResponseEntity.ok(apiResponse));
 
         EhPatoRequestDTO request = getEhPatoRequestDTO();
@@ -143,7 +143,7 @@ class EhPatoServiceTest {
         APIEhPatoIAResponseDTO apiResponse = new APIEhPatoIAResponseDTO();
         apiResponse.setEhPato(false);
 
-        when(restTemplate.exchange(anyString(), eq(HttpMethod.PUT), any(HttpEntity.class), eq(APIEhPatoIAResponseDTO.class)))
+        when(restTemplate.exchange(anyString(), eq(HttpMethod.POST), any(HttpEntity.class), eq(APIEhPatoIAResponseDTO.class)))
                 .thenReturn(ResponseEntity.ok(apiResponse));
 
         EhPatoRequestDTO request = getEhPatoRequestDTO();
@@ -163,7 +163,7 @@ class EhPatoServiceTest {
         APIEhPatoIAResponseDTO apiResponse = new APIEhPatoIAResponseDTO();
         apiResponse.setEhPato(false);
 
-        when(restTemplate.exchange(anyString(), eq(HttpMethod.PUT), any(HttpEntity.class), eq(APIEhPatoIAResponseDTO.class)))
+        when(restTemplate.exchange(anyString(), eq(HttpMethod.POST), any(HttpEntity.class), eq(APIEhPatoIAResponseDTO.class)))
                 .thenReturn(ResponseEntity.ok(apiResponse));
 
         EhPatoRequestDTO request = getEhPatoRequestDTO();
@@ -180,14 +180,14 @@ class EhPatoServiceTest {
 
     @Test
     void testCriarEstrategia_ApiErro() {
-        when(restTemplate.exchange(anyString(), eq(HttpMethod.PUT), any(HttpEntity.class), eq(APIEhPatoIAResponseDTO.class)))
+        when(restTemplate.exchange(anyString(), eq(HttpMethod.POST), any(HttpEntity.class), eq(APIEhPatoIAResponseDTO.class)))
                 .thenThrow(new RuntimeException("Erro na API"));
 
         EhPatoRequestDTO request = getEhPatoRequestDTO();
 
         assertThrows(RuntimeException.class, () -> ehPatoService.criarEstrategia(request));
 
-        verify(restTemplate, times(1)).exchange(anyString(), eq(HttpMethod.PUT), any(HttpEntity.class), eq(APIEhPatoIAResponseDTO.class));
+        verify(restTemplate, times(1)).exchange(anyString(), eq(HttpMethod.POST), any(HttpEntity.class), eq(APIEhPatoIAResponseDTO.class));
     }
 
     private static EhPatoRequestDTO getEhPatoRequestDTO() {
