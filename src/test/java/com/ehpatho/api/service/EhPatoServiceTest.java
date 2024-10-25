@@ -18,6 +18,11 @@ import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.ArgumentMatchers.*;
 import static org.mockito.Mockito.*;
 
+/**
+ * A classe EhPatoServiceTest é responsável por realizar testes unitários da classe EhPatoService
+ *
+ * @author Willian Scaquett willian.scaquett@gmail.com
+ */
 class EhPatoServiceTest {
 
     @Mock

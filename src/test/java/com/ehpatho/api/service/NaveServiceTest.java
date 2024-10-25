@@ -6,7 +6,6 @@ import com.ehpatho.api.dto.NaveResponseDTO;
 import com.ehpatho.api.entity.Nave;
 import com.ehpatho.api.enumerated.*;
 import com.ehpatho.api.repository.NaveRepository;
-import jakarta.transaction.Transactional;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -15,8 +14,10 @@ import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMock
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.web.server.ResponseStatusException;
+
 import java.util.List;
 import java.util.Optional;
+
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.ArgumentMatchers.any;
@@ -24,7 +25,7 @@ import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.Mockito.*;
 
 /**
- * A classe NaveServiceTest é responsável por realizar testes unitarios da classe NaveService
+ * A classe NaveServiceTest é responsável por realizar testes unitários da classe NaveService
  *
  * @author Kaique Queiros kaique_q@outlook.com
  */
@@ -168,6 +169,7 @@ public class NaveServiceTest {
         assertEquals("Plutônio", responseDTO.getTipoCombustivel());
 
     }
+
     @Test
     public void testaEditarNave_NomeNull() {
 

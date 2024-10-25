@@ -7,6 +7,11 @@ import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
+/**
+ * A classe NaveClassificadorTest é responsável por realizar testes unitários da classe NaveClassificador
+ *
+ * @author Willian Scaquett willian.scaquett@gmail.com
+ */
 public class NaveClassificadorTest {
 
     private NaveClassificador naveClassificador;
