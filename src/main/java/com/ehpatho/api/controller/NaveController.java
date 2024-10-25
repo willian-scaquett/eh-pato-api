@@ -48,7 +48,7 @@ public class NaveController {
         return ResponseEntity.ok(naveService.criarNave(naveResponseDTO));
     }
 
-    @Operation(summary = "Endpoint responsável por apagar uma nave através do ID informado.")
+    @Operation(summary = "Endpoint responsável por apagar uma nave através do ID informado")
     @ApiResponses({
             @ApiResponse(responseCode = "200", description = "Nave excluída com sucesso"),
             @ApiResponse(responseCode = "404", description = "Nave não encontrada")
@@ -59,7 +59,7 @@ public class NaveController {
         return ResponseEntity.ok(new ResponseDTO("Sucesso"));
     }
 
-    @Operation(summary = "Endpoint responsável por atualizar uma nave através do ID informado e dos dados passados no body.")
+    @Operation(summary = "Endpoint responsável por atualizar uma nave através do ID informado e dos dados passados no body")
     @ApiResponses({
             @ApiResponse(responseCode = "200", description = "Nave atualizada com sucesso"),
             @ApiResponse(responseCode = "400", description = "Nome de nave vazio ou já existente"),
@@ -80,7 +80,7 @@ public class NaveController {
         return ResponseEntity.ok(naveService.buscarNavePeloId(idNave));
     }
 
-    @Operation(summary = "Endpoint responsável informar os valores dos selects da tela de cadastro e edição de nave.")
+    @Operation(summary = "Endpoint responsável informar os valores dos selects da tela de cadastro e edição de nave")
     @ApiResponses({
             @ApiResponse(responseCode = "200", description = "Valores dos selects retornados com sucesso")
     })
