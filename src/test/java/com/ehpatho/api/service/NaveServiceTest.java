@@ -44,7 +44,6 @@ public class NaveServiceTest {
     }
 
     @Test
-    @Transactional
     public void testaBuscarTodasAsNaves() {
         List<NaveResponseDTO> naveResponseDTOList = naveService.listaNaves();
         Assertions.assertEquals(0, naveResponseDTOList.size());
@@ -52,12 +51,12 @@ public class NaveServiceTest {
 
     @Test
     public void testaCriarNovaNave_Success() {
-        Nave nave = new Nave();
+        Nave nave = new Nave(getRequestDTO());
         nave.setId(1L);
         nave.setPericulosidade(Periculosidade.ALTA);
         nave.setClassificacao(Classificacao.AMEACA_EM_POTENCIAL);
-        when(naveRepository.save(nave)).thenReturn(nave);
-
+        when(naveRepository.save(any(Nave.class))).thenReturn(nave);
+        when(naveClassificador.definirCategoriaEPericulosidade(any(Nave.class))).thenReturn(nave);
         NaveResponseDTO naveResponseDTO = naveService.criarNave(getRequestDTO());
 
         Assertions.assertEquals("Teste", naveResponseDTO.getNome());
@@ -65,7 +64,38 @@ public class NaveServiceTest {
     }
 
     @Test
-    @Transactional
+    public void testaCriarNovaNave_NomeNull() {
+        NaveRequestDTO naveRequestDTO = getRequestDTO();
+        naveRequestDTO.setNome(null);
+        Nave nave = new Nave(getRequestDTO());
+        nave.setId(1L);
+        nave.setPericulosidade(Periculosidade.ALTA);
+        nave.setClassificacao(Classificacao.AMEACA_EM_POTENCIAL);
+        when(naveRepository.save(any(Nave.class))).thenReturn(nave);
+        when(naveClassificador.definirCategoriaEPericulosidade(any(Nave.class))).thenReturn(nave);
+
+        assertThrows(ResponseStatusException.class, () -> {
+            naveService.criarNave(naveRequestDTO);
+        });
+    }
+    @Test
+    public void testaCriarNovaNave_NomeVazio() {
+        NaveRequestDTO naveRequestDTO = getRequestDTO();
+        naveRequestDTO.setNome("");
+        Nave nave = new Nave(getRequestDTO());
+        nave.setId(1L);
+        nave.setPericulosidade(Periculosidade.ALTA);
+        nave.setClassificacao(Classificacao.AMEACA_EM_POTENCIAL);
+        when(naveRepository.save(any(Nave.class))).thenReturn(nave);
+        when(naveClassificador.definirCategoriaEPericulosidade(any(Nave.class))).thenReturn(nave);
+
+        assertThrows(ResponseStatusException.class, () -> {
+            naveService.criarNave(naveRequestDTO);
+        });
+    }
+
+
+    @Test
     public void testaCriarNaveComNomeExistente() {
         when(this.naveRepository.existsByNome(anyString())).thenReturn(true);
         NaveRequestDTO naveRequestDTO = new NaveRequestDTO();
@@ -109,16 +139,116 @@ public class NaveServiceTest {
 
     @Test
     public void testaEditarNave() {
-        Nave nave = new Nave(getRequestDTO());
+
+        Nave naveSemEditar = new Nave(getRequestDTO());
+        naveSemEditar.setId(1L);
+        naveSemEditar.setPericulosidade(Periculosidade.ALTA);
+        naveSemEditar.setClassificacao(Classificacao.AMEACA_EM_POTENCIAL);
+
+        NaveRequestDTO atualizado = getRequestDTO();
+
+        //Atualizando nome e tipo de combustivel
+        atualizado.setNome("Teste atualizado");
+        atualizado.setTipoCombustivel(TipoCombustivel.PLUTONIO);
+
+        Nave nave = new Nave(atualizado);
         nave.setId(1L);
         nave.setNome("Teste atualizado");
-        when(this.naveRepository.findById(1L)).thenReturn(Optional.of(nave));
-        when(this.naveRepository.save(any(Nave.class))).thenReturn(nave);
-        when(this.naveService.editarNave(1L, getRequestDTO()));
+        nave.setPericulosidade(Periculosidade.ALTA);
+        nave.setClassificacao(Classificacao.AMEACA_EM_POTENCIAL);
 
-        NaveResponseDTO responseDTO = this.naveService.editarNave(1L, getRequestDTO());
+        when(this.naveRepository.findById(1L)).thenReturn(Optional.of(naveSemEditar));
+        when(this.naveClassificador.definirCategoriaEPericulosidade(any(Nave.class))).thenReturn(nave);
+        when(this.naveRepository.save(any(Nave.class))).thenReturn(nave);
+
+        NaveResponseDTO responseDTO = this.naveService.editarNave(1L, atualizado);
 
         assertEquals("Teste atualizado", responseDTO.getNome());
+        assertEquals("Plutônio", responseDTO.getTipoCombustivel());
+
+    }
+    @Test
+    public void testaEditarNave_NomeNull() {
+
+        Nave naveSemEditar = new Nave(getRequestDTO());
+        naveSemEditar.setId(1L);
+        naveSemEditar.setPericulosidade(Periculosidade.ALTA);
+        naveSemEditar.setClassificacao(Classificacao.AMEACA_EM_POTENCIAL);
+
+        NaveRequestDTO atualizado = getRequestDTO();
+
+        atualizado.setNome(null);
+        atualizado.setTipoCombustivel(TipoCombustivel.PLUTONIO);
+
+        Nave nave = new Nave(atualizado);
+        nave.setId(1L);
+        nave.setPericulosidade(Periculosidade.ALTA);
+        nave.setClassificacao(Classificacao.AMEACA_EM_POTENCIAL);
+
+        when(this.naveRepository.findById(1L)).thenReturn(Optional.of(naveSemEditar));
+        when(this.naveClassificador.definirCategoriaEPericulosidade(any(Nave.class))).thenReturn(nave);
+        when(this.naveRepository.save(any(Nave.class))).thenReturn(nave);
+
+        assertThrows(ResponseStatusException.class, () -> {
+            naveService.criarNave(atualizado);
+        });
+
+    }
+
+    @Test
+    public void testaEditarNave_NomeVazio() {
+
+        Nave naveSemEditar = new Nave(getRequestDTO());
+        naveSemEditar.setId(1L);
+        naveSemEditar.setPericulosidade(Periculosidade.ALTA);
+        naveSemEditar.setClassificacao(Classificacao.AMEACA_EM_POTENCIAL);
+
+        NaveRequestDTO atualizado = getRequestDTO();
+
+        atualizado.setNome("");
+        atualizado.setTipoCombustivel(TipoCombustivel.PLUTONIO);
+
+        Nave nave = new Nave(atualizado);
+        nave.setId(1L);
+        nave.setPericulosidade(Periculosidade.ALTA);
+        nave.setClassificacao(Classificacao.AMEACA_EM_POTENCIAL);
+
+        when(this.naveRepository.findById(1L)).thenReturn(Optional.of(naveSemEditar));
+        when(this.naveClassificador.definirCategoriaEPericulosidade(any(Nave.class))).thenReturn(nave);
+        when(this.naveRepository.save(any(Nave.class))).thenReturn(nave);
+
+        assertThrows(ResponseStatusException.class, () -> {
+            naveService.criarNave(atualizado);
+        });
+
+    }
+
+    @Test
+    public void testaEditarNave_NomeExistenteIdNulo() {
+
+        Nave naveSemEditar = new Nave(getRequestDTO());
+        naveSemEditar.setId(1L);
+        naveSemEditar.setPericulosidade(Periculosidade.ALTA);
+        naveSemEditar.setClassificacao(Classificacao.AMEACA_EM_POTENCIAL);
+
+        NaveRequestDTO atualizado = getRequestDTO();
+
+        atualizado.setNome("Teste");
+        atualizado.setTipoCombustivel(TipoCombustivel.PLUTONIO);
+
+        Nave nave = new Nave(atualizado);
+        nave.setId(1L);
+        nave.setPericulosidade(Periculosidade.ALTA);
+        nave.setClassificacao(Classificacao.AMEACA_EM_POTENCIAL);
+
+        when(this.naveRepository.findById(1L)).thenReturn(Optional.of(naveSemEditar));
+        when(this.naveClassificador.definirCategoriaEPericulosidade(any(Nave.class))).thenReturn(nave);
+        when(this.naveRepository.save(any(Nave.class))).thenReturn(nave);
+        when(this.naveRepository.existsByNomeAndIdNot(anyString(), anyLong())).thenReturn(true);
+
+        assertThrows(ResponseStatusException.class, () -> {
+            naveService.editarNave(nave.getId(), atualizado);
+        });
 
     }
 
